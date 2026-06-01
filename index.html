@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FCFP Viva Bank — Journal Critique &amp; PEL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Spline+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   FCFP SUMMATIVE VIVA — QUESTION BANK
+   Single-file site. Hash-routed. No build step, no backend.
+   ALL CONTENT lives in the DATA object further down — to add a
+   new article or scenario, copy a template item and edit it.
+   ============================================================ */
+:root{
+  --paper:#f6f2ea;
+  --paper-2:#fffdf8;
+  --ink:#1b2737;
+  --ink-soft:#566375;
+  --ink-faint:#8a93a0;
+  --line:#e6ddcd;
+  --line-2:#d8cdb8;
+  --ebm:#0f766e;        /* Evidence-Based Medicine accent (teal) */
+  --ebm-tint:#e4efed;
+  --pel:#9e4a1c;        /* PEL accent (rust) */
+  --pel-tint:#f1e6dc;
+  --gold:#b7892f;
+  --shadow:0 1px 2px rgba(27,39,55,.05),0 8px 28px -12px rgba(27,39,55,.18);
+  --shadow-lg:0 2px 6px rgba(27,39,55,.06),0 24px 60px -22px rgba(27,39,55,.28);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Spline Sans",system-ui,sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(1200px 600px at 80% -10%,rgba(15,118,110,.06),transparent 60%),radial-gradient(1000px 500px at 0% 0%,rgba(158,74,28,.05),transparent 55%);
+  background-attachment:fixed;
+}
+h1,h2,h3,h4{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.12;margin:0;letter-spacing:-.01em}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:40;background:rgba(246,242,234,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:18px;height:62px}
+.brand{display:flex;align-items:center;gap:11px;cursor:pointer;text-decoration:none}
+.brand .mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,var(--ebm),#0c5d56);display:grid;place-items:center;color:#fff;font-family:"Fraunces";font-weight:700;font-size:16px;box-shadow:var(--shadow)}
+.brand b{font-family:"Fraunces";font-weight:600;font-size:18px;letter-spacing:-.01em}
+.brand span{color:var(--ink-faint);font-size:12.5px;font-weight:500;display:block;margin-top:-3px;letter-spacing:.02em}
+.searchbox{margin-left:auto;position:relative;display:flex;align-items:center}
+.searchbox input{width:200px;max-width:42vw;padding:8px 12px 8px 32px;border:1px solid var(--line-2);border-radius:9px;background:var(--paper-2);font-size:14px;color:var(--ink);transition:.2s;outline:none}
+.searchbox input:focus{width:240px;border-color:var(--ebm);box-shadow:0 0 0 3px var(--ebm-tint)}
+.searchbox svg{position:absolute;left:10px;width:15px;height:15px;color:var(--ink-faint)}
+
+/* ---------- breadcrumb ---------- */
+.crumbs{display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:13.5px;color:var(--ink-faint);padding:22px 0 4px}
+.crumbs a{text-decoration:none;color:var(--ink-soft);font-weight:500;cursor:pointer;border-radius:5px}
+.crumbs a:hover{color:var(--ink)}
+.crumbs .sep{opacity:.5}
+
+/* ---------- hero ---------- */
+.hero{padding:54px 0 30px}
+.hero .eyebrow{font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;margin-bottom:14px}
+.hero h1{font-size:clamp(34px,6vw,60px);max-width:14ch}
+.hero h1 em{font-style:italic;color:var(--ebm)}
+.hero p{max-width:60ch;color:var(--ink-soft);font-size:17px;margin-top:18px}
+
+/* ---------- section panels (home) ---------- */
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:30px 0 60px}
+.panel{position:relative;border:1px solid var(--line);border-radius:18px;background:var(--paper-2);padding:30px 28px 26px;cursor:pointer;overflow:hidden;transition:transform .28s cubic-bezier(.2,.7,.2,1),box-shadow .28s,border-color .28s;box-shadow:var(--shadow);text-align:left}
+.panel:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+.panel::before{content:"";position:absolute;inset:0 auto 0 0;width:5px}
+.panel.ebm::before{background:var(--ebm)}
+.panel.pel::before{background:var(--pel)}
+.panel.ebm:hover{border-color:var(--ebm)}
+.panel.pel:hover{border-color:var(--pel)}
+.panel .ptag{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+.panel.ebm .ptag{color:var(--ebm)}
+.panel.pel .ptag{color:var(--pel)}
+.panel h2{font-size:27px;margin:10px 0 6px}
+.panel .pdesc{color:var(--ink-soft);font-size:14.5px;min-height:42px}
+.panel ul{list-style:none;margin:18px 0 0;padding:16px 0 0;border-top:1px dashed var(--line-2);display:flex;flex-wrap:wrap;gap:7px}
+.panel li{font-size:13px;background:var(--paper);border:1px solid var(--line);padding:4px 10px;border-radius:20px;color:var(--ink-soft);font-weight:500}
+.panel .go{display:flex;align-items:center;gap:7px;margin-top:20px;font-weight:600;font-size:14px}
+.panel.ebm .go{color:var(--ebm)} .panel.pel .go{color:var(--pel)}
+.panel .go svg{width:16px;height:16px;transition:transform .25s}
+.panel:hover .go svg{transform:translateX(4px)}
+
+/* ---------- card grid (categories / areas) ---------- */
+.lead{margin:6px 0 26px}
+.lead h2{font-size:clamp(28px,4vw,40px)}
+.lead .blurb{color:var(--ink-soft);max-width:62ch;margin-top:12px;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:18px;padding-bottom:64px}
+.card{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--paper-2);padding:22px 20px;cursor:pointer;transition:transform .22s,box-shadow .22s,border-color .22s;box-shadow:var(--shadow);overflow:hidden}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.card .knum{font-family:"Fraunces";font-size:13px;font-weight:600;color:var(--ink-faint)}
+.card h3{font-size:20px;margin:8px 0 7px}
+.card .cdesc{font-size:13.5px;color:var(--ink-soft);min-height:36px}
+.card .count{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:12.5px;font-weight:600;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);padding:3px 10px;border-radius:20px}
+.card .dot{width:6px;height:6px;border-radius:50%}
+.dot.ebm{background:var(--ebm)} .dot.pel{background:var(--pel)}
+.card.accent-ebm:hover{border-color:var(--ebm)} .card.accent-pel:hover{border-color:var(--pel)}
+.card.accent-ebm::after,.card.accent-pel::after{content:"";position:absolute;top:0;left:0;right:0;height:3px;transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.card.accent-ebm::after{background:var(--ebm)} .card.accent-pel::after{background:var(--pel)}
+.card:hover::after{transform:scaleX(1)}
+
+/* ---------- item list ---------- */
+.itemlist{display:flex;flex-direction:column;gap:12px;padding-bottom:64px}
+.irow{display:flex;align-items:center;gap:16px;border:1px solid var(--line);border-radius:12px;background:var(--paper-2);padding:16px 18px;cursor:pointer;transition:transform .18s,box-shadow .18s,border-color .18s;box-shadow:var(--shadow)}
+.irow:hover{transform:translateX(4px);box-shadow:var(--shadow-lg)}
+.irow .ico{flex:0 0 auto;width:38px;height:38px;border-radius:9px;display:grid;place-items:center;font-family:"Fraunces";font-weight:600;font-size:15px}
+.ico.ebm{background:var(--ebm-tint);color:var(--ebm)} .ico.pel{background:var(--pel-tint);color:var(--pel)}
+.irow .imain{flex:1;min-width:0}
+.irow h4{font-size:17px;font-family:"Fraunces";font-weight:600}
+.irow .imeta{font-size:13px;color:var(--ink-faint);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.irow .chev{color:var(--ink-faint);flex:0 0 auto}
+.tag{display:inline-block;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:2px 7px;border-radius:5px;vertical-align:middle;margin-left:8px}
+.tag.sample{background:var(--gold);color:#fff}
+.tag.type{background:var(--ebm-tint);color:var(--ebm);letter-spacing:.04em}
+
+/* ---------- empty state ---------- */
+.empty{border:1.5px dashed var(--line-2);border-radius:14px;padding:40px 28px;text-align:center;color:var(--ink-soft);background:var(--paper-2)}
+.empty h3{font-size:20px;margin-bottom:8px}
+.empty p{max-width:46ch;margin:0 auto;font-size:14.5px}
+
+/* ---------- item detail ---------- */
+.detail{padding-bottom:80px;max-width:780px}
+.detail .dhead{margin:6px 0 26px}
+.detail h2{font-size:clamp(26px,4vw,38px);max-width:24ch}
+.dmeta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:20px;background:var(--paper-2);border:1px solid var(--line);color:var(--ink-soft)}
+.chip.ebm{border-color:var(--ebm);color:var(--ebm);background:var(--ebm-tint)}
+.chip.pel{border-color:var(--pel);color:var(--pel);background:var(--pel-tint)}
+.block{border:1px solid var(--line);border-radius:14px;background:var(--paper-2);padding:24px 26px;margin-bottom:18px;box-shadow:var(--shadow)}
+.block .blabel{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--ink-faint);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.block .blabel .bar{width:18px;height:2px;background:var(--ink-faint)}
+.block.source .blabel{color:var(--ebm)} .block.source .blabel .bar{background:var(--ebm)}
+.block.source.pel .blabel{color:var(--pel)} .block.source.pel .blabel .bar{background:var(--pel)}
+.scenario{font-size:16.5px;line-height:1.72;color:var(--ink)}
+.scenario p{margin:0 0 12px} .scenario p:last-child{margin-bottom:0}
+.citation{margin-top:18px;padding-top:16px;border-top:1px dashed var(--line-2);font-size:14px;color:var(--ink-soft);font-style:italic}
+.block.reading .blabel{color:var(--gold)} .block.reading .blabel .bar{background:var(--gold)}
+.readlist{margin:4px 0 0;padding-left:22px} .readlist li{margin:7px 0;font-size:15px;line-height:1.6;color:var(--ink)}
+.readlist li em{color:var(--ink-soft)}
+a.readlink{color:var(--gold);font-weight:600;text-decoration:none;border-bottom:1px solid transparent;cursor:pointer}
+a.readlink:hover{border-bottom-color:var(--gold)}
+.reflead{font-style:italic;color:var(--ink-soft);margin:-2px 0 20px;font-size:15px}
+.refbody{font-size:15.5px;line-height:1.72;color:var(--ink)}
+.refbody h3{font-size:19px;color:var(--ebm);margin:26px 0 10px}
+.refbody h3:first-child{margin-top:4px}
+.refbody p{margin:0 0 12px}
+.refbody ul,.refbody ol{margin:0 0 14px;padding-left:22px}
+.refbody li{margin:7px 0}
+.refbody ul ul{margin:6px 0}
+.refnote{margin-top:26px;padding:14px 16px;background:var(--paper-2);border:1px solid var(--line);border-radius:10px;font-size:13.5px;color:var(--ink-soft)}
+.artlink{display:inline-flex;align-items:center;gap:8px;margin-top:14px;text-decoration:none;font-weight:600;font-size:14px;color:#fff;background:var(--ebm);padding:9px 16px;border-radius:9px;transition:.2s;box-shadow:var(--shadow)}
+.artlink:hover{filter:brightness(1.07);transform:translateY(-1px)}
+.artlink svg{width:15px;height:15px}
+
+/* probes & answer panels */
+.probes-wrap{border:1px solid var(--line);border-radius:14px;background:var(--paper-2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:18px;--ac:var(--ebm);--ac-tint:var(--ebm-tint)}
+.probes-wrap.ebm{--ac:var(--ebm);--ac-tint:var(--ebm-tint)}
+.probes-wrap.pel{--ac:var(--pel);--ac-tint:var(--pel-tint)}
+.probes-head{display:flex;align-items:center;gap:14px;padding:20px 26px;cursor:pointer;user-select:none}
+.probes-head .ph-ico{width:36px;height:36px;border-radius:9px;background:var(--ac-tint);color:var(--ac);display:grid;place-items:center;flex:0 0 auto}
+.probes-head .ph-txt b{font-family:"Fraunces";font-size:18px;font-weight:600;display:block}
+.probes-head .ph-txt small{color:var(--ink-faint);font-size:13px}
+.probes-head .ph-toggle{margin-left:auto;flex:0 0 auto;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ac);border:1px solid var(--ac);background:var(--ac-tint);padding:7px 13px;border-radius:8px;transition:.2s}
+.probes-head .ph-toggle:hover{background:var(--ac);color:#fff}
+.probes-head .ph-toggle svg{width:14px;height:14px;transition:transform .25s}
+.probes-wrap.open .ph-toggle svg{transform:rotate(180deg)}
+.probes-body{display:none;border-top:1px solid var(--line);padding:8px 26px 26px}
+.probes-wrap.open .probes-body{display:block;animation:fade .35s ease}
+.bodytools{display:flex;justify-content:flex-end;padding:14px 0 4px}
+.bodytools button{font-size:12.5px;font-weight:600;color:var(--ink-soft);background:none;border:1px solid var(--line-2);padding:5px 12px;border-radius:7px;transition:.2s}
+.bodytools button:hover{border-color:var(--ink-soft);color:var(--ink)}
+.probe{border-top:1px dashed var(--line-2);padding:18px 0}
+.probe:first-of-type{border-top:none}
+.probe .q{font-family:"Fraunces";font-size:16.5px;font-weight:600;display:flex;gap:11px;align-items:flex-start}
+.probe .q .qn{flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:12px;display:grid;place-items:center;margin-top:2px}
+.probe .reveal{margin:12px 0 0 35px;font-size:13px;font-weight:600;color:var(--ac);background:var(--ac-tint);border:1px solid var(--ac);padding:6px 13px;border-radius:8px;transition:.2s}
+.probe .reveal:hover{background:var(--ac);color:#fff}
+.probe .ans{display:none;margin:12px 0 0 35px;padding:15px 18px;background:var(--paper);border-left:3px solid var(--ac);border-radius:0 10px 10px 0;font-size:15px;line-height:1.7;color:var(--ink)}
+.probe.shown .ans{display:block;animation:fade .3s ease}
+.probe.shown .reveal{display:none}
+.probe .ans ul{margin:8px 0 0;padding-left:20px} .probe .ans li{margin:4px 0}
+.probe .ans strong{color:var(--ac)}
+/* full suggested answer */
+.attempt-note{font-size:13px;color:var(--ink-faint);font-style:italic;margin:4px 0 16px;padding-left:2px}
+.model{padding-top:6px}
+.model .msec{padding:14px 0;border-top:1px dashed var(--line-2)}
+.model .msec:first-child{border-top:none;padding-top:14px}
+.model .msec h4{font-family:"Fraunces";font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);margin-bottom:7px}
+.model .msec div{font-size:15.5px;line-height:1.72;color:var(--ink)}
+.model .msec strong{color:var(--ac);font-weight:600}
+@keyframes fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+
+/* search results */
+.sr-note{color:var(--ink-faint);font-size:13.5px;margin:4px 0 18px}
+
+/* footer */
+footer{border-top:1px solid var(--line);background:var(--paper-2);margin-top:30px}
+footer .wrap{padding:34px 24px 44px;display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:flex-start}
+footer .fcol{max-width:46ch}
+footer h4{font-family:"Fraunces";font-size:17px;margin-bottom:8px}
+footer p{font-size:13.5px;color:var(--ink-soft);margin:0 0 8px}
+footer code{background:var(--paper);border:1px solid var(--line);padding:1px 6px;border-radius:5px;font-size:12.5px}
+
+.fade-up{animation:fadeUp .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+@media(max-width:760px){
+  .panels{grid-template-columns:1fr}
+  .brand span{display:none}
+  .searchbox input{width:130px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#/">
+      <div class="mark">F</div>
+      <div><b>FCFP Viva Bank</b><span>Journal Critique &amp; PEL practice</span></div>
+    </a>
+    <div class="searchbox">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" type="search" placeholder="Search the bank…" autocomplete="off">
+    </div>
+  </div>
+</div>
+
+<div class="wrap" id="app"></div>
+
+<footer>
+  <div class="wrap">
+    <div class="fcol">
+      <h4>About this bank</h4>
+      <p>A growing, peer-built question bank for the Fellowship (Family Medicine) Summative Viva — journal critique articles and PEL scenarios, each paired with probes and suggested answers kept hidden until you've attempted them.</p>
+      <p>Built to outlast any single cohort. Contributions from each batch keep it alive.</p>
+    </div>
+    <div class="fcol">
+      <h4>Adding material</h4>
+      <p>Every article and scenario lives in the <code>DATA</code> object near the top of this file. To add one, copy an existing item, change the fields, and save. No server or build step — open the file or host it anywhere static.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   DATA  —  the entire content of the bank lives here.
+   ------------------------------------------------------------
+   Structure:
+     A "branch"   node has  { id, label, blurb, children:[...] }
+     A "category" node has  { id, label, blurb, items:[...] }
+     An "item" is one article (EBM) or one scenario (PEL).
+
+   ITEM TEMPLATE (copy this, fill it in, drop into an items array):
+   {
+     id:'unique-slug',
+     title:'Short title shown in lists & header',
+     sample:false,                 // true shows a gold SAMPLE tag
+     type:'RCT',                   // optional short label (EBM study type, etc.)
+     setting:'GP clinic, walk-in', // optional one-line context shown as meta
+     // SOURCE MATERIAL (always visible):
+     stem:['Paragraph one of the clinical question / scenario.',
+           'Paragraph two.'],      // array = paragraphs
+     citation:'Authors. Title. Journal. Year;Vol(Iss):pp.',  // EBM only, optional
+     articleLink:'https://...',    // link to the tested article, optional
+     reading:['Resource name (with a short note on relevance)'],  // optional 'Suggested reading' list shown at the end of the page
+     // FOLLOW-UP PROBES (each answer hidden until revealed):
+     probes:[
+       { q:'An examiner-style follow-up question.',
+         a:'The answer to that probe. You may use <strong>bold</strong> and <ul><li>lists</li></ul>.' }
+     ],
+     // FULL SUGGESTED ANSWER (one prose model answer, hidden until revealed).
+     // For journal critique, keep the sequence: Directness -> Internal validity
+     // (strengths & weaknesses) -> Results -> External validity -> Summary.
+     model:[
+       { h:'Directness',        p:'Prose for this section. HTML allowed.' },
+       { h:'Internal validity', p:'Strengths and weaknesses of the methodology.' },
+       { h:'Results',           p:'What the study found and how precise it is.' },
+       { h:'External validity', p:'Applicability to your patient / setting.' },
+       { h:'Summary',           p:'The bottom line in one or two sentences.' }
+     ]
+   }
+   ============================================================ */
+const DATA = [
+  {
+    id:'ebm', accent:'ebm',
+    label:'Evidence-Based Medicine',
+    sub:'Journal Critique',
+    blurb:'An unseen paper is given on the day. You appraise it against the relevant checklist, then defend your critique. Browse by study type — each one tests a different appraisal framework (validity, results, applicability).',
+    children:[
+      { id:'therapy', label:'Therapy', type:'RCT', blurb:'Randomised controlled trials. Randomisation, allocation concealment, blinding, ITT, NNT.', items:[
+        {
+          id:'sample-rct-olive-oil',
+          title:'Topical olive oil vs hyperoxygenated fatty acids for pressure-ulcer prevention',
+          sample:true, type:'Non-inferiority RCT', setting:'Immobilised home-care patients, primary care',
+          stem:[
+            'You are handed a multicentre, triple-blind, parallel, non-inferiority randomised controlled trial comparing a topical olive-oil solution against the hyperoxygenated fatty-acid (HOFA) standard for preventing pressure ulcers in immobilised patients at risk, recruited through primary healthcare centres in Andalusia, Spain. 831 patients were randomised and followed for 16 weeks, with a pre-specified non-inferiority margin (delta) of 10%.',
+            'You have 60 minutes to appraise it with your checklist, then defend your appraisal to the examiners.'
+          ],
+          citation:'Lupiañez-Perez I, Uttumchandani SK, Morilla-Herrera JC, et al. Topical olive oil is not inferior to hyperoxygenated fatty acids to prevent pressure ulcers in high-risk immobilised patients in home care. PLoS One. 2015;10(4):e0122238.',
+          articleLink:'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0122238',
+          probes:[
+            { q:'How was the study designed, and was randomisation and allocation concealment adequate?',
+              a:'Identify it explicitly as a <strong>multicentre, triple-blind, parallel-group, non-inferiority RCT</strong>. Comment on the method of sequence generation, whether allocation was concealed (e.g. central randomisation or sealed opaque envelopes), and whether the groups were balanced at baseline. The paper reports groups were similar after randomisation — state that, but check the actual baseline table rather than taking it on trust.' },
+            { q:'Was blinding achieved, and does it matter for this outcome?',
+              a:'It claims to be triple-blind (participant/carer, outcome assessor, and analyst). Probe whether the two oils could realistically be told apart by smell or feel. The key point that scores: even if applier blinding were imperfect, the outcome (a new pressure ulcer) was <strong>assessed by separately blinded assessors against an objective definition</strong>, which protects against detection bias.' },
+            { q:'Why does the choice of analysis population matter in a non-inferiority trial?',
+              a:'In superiority trials ITT is most conservative, but in <strong>non-inferiority</strong> trials ITT tends to <em>blur</em> groups together and can spuriously favour "non-inferiority". A <strong>per-protocol</strong> analysis is therefore essential here and should agree with ITT. This study reports per-protocol risk differences staying within the 10% margin — note whether ITT was also presented.' },
+            { q:'How do you interpret the result against the non-inferiority margin?',
+              a:'Non-inferiority is concluded when the <strong>confidence interval of the risk difference lies entirely within the pre-specified delta</strong>. Here the absolute risk differences by body site (sacrum, heels, trochanters) were small with CIs that did not cross the 10% margin — so non-inferiority is supported. Comment on whether a 10% delta is clinically reasonable for this outcome.' },
+            { q:'Can you apply these results to your patient?',
+              a:'Individualise. Consider how your patient differs from an Andalusian home-care cohort (over half had cognitive impairment and high incontinence-product use), the setting (primary/home care vs hospital), product cost and availability (olive oil is far cheaper than HOFA — a key reason the question matters), and safety (only one mild adverse event reported). Be appropriately measured about extrapolating.' }
+          ],
+          model:[
+            { h:'Directness', p:'This trial directly addresses a relevant PICO: in immobilised patients at risk of pressure ulcers (P), does a topical <strong>olive-oil solution</strong> (I), compared with the established <strong>hyperoxygenated fatty-acid</strong> preparation (C), prevent the development of pressure ulcers (O)? The non-inferiority framing is appropriate and clinically motivated — the interesting question is not whether olive oil is <em>better</em> but whether a far cheaper, widely available agent is <em>no worse</em>, which is exactly the decision a primary-care system faces. <strong>Directness — verdict: HIGH.</strong>' },
+            { h:'Internal validity — strengths', p:'The principal strengths are a sound randomised, triple-blind, parallel design with concealed allocation and baseline comparability between groups; an objective, assessor-blinded primary outcome (new pressure ulcer by recognised criteria) that limits detection bias; and an appropriately <strong>pre-specified non-inferiority margin (delta 10%)</strong> analysed by the per-protocol approach that non-inferiority designs require. The 16-week follow-up is adequate for the outcome, and a sample of 831 supports the precision of the estimates.' },
+            { h:'Internal validity — weaknesses', p:'I would probe the adequacy of blinding given the two oils may differ in smell or texture; the completeness of follow-up and how withdrawals were handled (loss to follow-up biases a non-inferiority result toward "non-inferior"); and whether both ITT and per-protocol analyses agreed. I would also scrutinise any baseline imbalance against its actual p-value before calling it significant, and note that reporting risk differences separately by body site, while informative, can fragment statistical power. <strong>Internal validity — verdict: HIGH.</strong> A well-conducted triple-blind trial with concealed allocation and the per-protocol analysis a non-inferiority design requires; the open items above are things to probe rather than evident flaws.' },
+            { h:'Results', p:'Across the body sites assessed, the absolute risk differences between olive oil and HOFA were small (for example sacrum ~0.5%, heels well under 1%) and, critically, the <strong>confidence intervals did not exceed the pre-specified 10% margin</strong>. Non-inferiority is therefore supported. Adverse events were minimal (a single mild reaction in the olive-oil arm), so the safety signal is reassuring.' },
+            { h:'External validity — applicability', p:'The cohort — immobilised, frequently cognitively impaired, high incontinence-product use, managed in primary/home care in Spain — maps reasonably onto the frail community and nursing-home patients we see, though the care setting and skin-care routines may differ from mine. The decisive applicability point is economic and practical: olive oil is markedly cheaper and more accessible than HOFA, so demonstrating non-inferiority has real implications for cost-effective, equitable prevention. I would individualise to the patient in front of me and to local product availability before changing practice. <strong>External validity — verdict: MODERATE.</strong> The frail primary-care population maps reasonably onto ours and the economic case is strong, but the Spanish home-care setting and skin-care routines differ enough that I would individualise before adopting.' },
+            { h:'Summary', p:'This is a methodologically sound non-inferiority RCT showing that topical olive oil is not inferior to hyperoxygenated fatty acids for preventing pressure ulcers in at-risk immobilised patients, with a reassuring safety profile. Given its lower cost and wider availability, it is a credible, practice-relevant alternative — subject to confirming the per-protocol/ITT concordance and judging the 10% margin acceptable for this outcome.' }
+          ]
+        },
+        {
+          id:'rct-ssass-salt-substitute',
+          title:'Salt substitute vs regular salt for prevention of stroke and cardiovascular events',
+          sample:false, type:'Cluster RCT (superiority)', setting:'Rural China; high-CV-risk older adults',
+          stem:[
+            'You are handed an open-label, cluster-randomised controlled superiority trial testing whether replacing regular salt with a reduced-sodium salt substitute (75% sodium chloride, 25% potassium chloride by mass) lowers the rate of stroke. 600 villages across five provinces of rural China were randomised 1:1 by village; 20,995 participants — all with a history of stroke, or aged 60 or older with poorly-controlled high blood pressure — were followed for a mean of 4.74 years. The primary outcome was stroke; the secondary outcomes were major adverse cardiovascular events and death from any cause; the pre-specified safety outcome was clinical hyperkalaemia.',
+            'You have 60 minutes to appraise it with your checklist, then defend your appraisal to the examiners.'
+          ],
+          citation:'Neal B, Wu Y, Feng X, et al. Effect of Salt Substitution on Cardiovascular Events and Death. N Engl J Med. 2021;385(12):1067-1077.',
+          articleLink:'https://www.nejm.org/doi/full/10.1056/NEJMoa2105675',
+          probes:[
+            { q:'Identify the study design. Why were villages randomised rather than individuals, and what does that oblige you to check?',
+              a:'It is a <strong>cluster-randomised</strong> RCT — the village, not the person, is the unit of allocation. Clusters are used here because the intervention is a household behaviour (which salt sits in the kitchen), so randomising individuals within a village would invite <strong>contamination</strong>. Three things follow: <ul><li>the analysis must <strong>account for clustering</strong> — it used a hierarchical Poisson model with person-time as an offset;</li><li>baseline balance should be judged at the <strong>cluster</strong> level, not just the individual level;</li><li>randomisation should occur <em>after</em> recruitment and baseline data collection — which it did (central, stratified by county), guarding against the post-allocation recruitment bias that commonly distorts cluster trials.</li></ul>' },
+            { q:'The trial was open-label. Does that fatally undermine its internal validity?',
+              a:'No — though you must name the risk. Participants and carers were unblinded, so <strong>performance bias</strong> (differential co-intervention or behaviour between arms) is possible. The decisive mitigation is that the <strong>endpoint adjudication committee was blinded</strong> to allocation and the primary outcomes were <strong>objective</strong> (stroke, death), which protects against <strong>detection bias</strong> — usually the more dangerous one. Hard endpoints are well protected; the softest, most adjudication-dependent components remain the most vulnerable. Net: open-label is a real but largely offset limitation, not a fatal one.' },
+            { q:'How were participants analysed, and how do incomplete adherence and contamination bias a superiority trial?',
+              a:'Analysis was <strong>intention-to-treat</strong>, preserving randomisation. Adherence was imperfect and there was some crossover — at five years ~92% of the intervention group but also ~6% of the control group reported using a salt substitute. Both <strong>dilute</strong> the contrast between arms, biasing toward the null. In a <em>superiority</em> trial that dilution is <strong>conservative</strong>: it makes a positive finding more credible, and the true effect is plausibly larger than observed. (Contrast a non-inferiority trial, where ITT dilution flatters "no difference".)' },
+            { q:'How large and how precise is the effect, and can you express it in absolute terms?',
+              a:'All effects are <strong>rate ratios</strong> with confidence intervals <strong>entirely below 1</strong>, so each is a definite, significant benefit: stroke RR <strong>0.86 (0.77–0.96)</strong>, P=0.006; MACE RR <strong>0.87 (0.80–0.94)</strong>; all-cause death RR <strong>0.88 (0.82–0.95)</strong>. Working from the rate differences gives an absolute sense: stroke ≈4.5 fewer events per 1000 person-years (NNT ≈47 over ~4.74 years), death ≈5.3/1000 person-years (NNT ≈40), MACE (NNT ≈29) — all approximate. Two honest caveats: blood pressure fell only modestly (SBP −3.34 mmHg), consistent with the proposed mechanism, and the multiplicity adjustment was done <strong>post hoc</strong>.' },
+            { q:'Can you reassure a patient about hyperkalaemia, and would you apply this in your Singapore practice?',
+              a:'Hyperkalaemia showed <strong>no signal</strong> (RR 1.04, 95% CI 0.80–1.37, P=0.76) — but qualify it heavily: serum potassium was <strong>not measured serially</strong>, so asymptomatic hyperkalaemia could be missed, and people with known kidney disease, potassium supplements or potassium-sparing diuretics were <strong>excluded</strong>. The reassurance therefore applies to a population already screened (by history) for renal risk. On applicability (SCRAPS/CFPS): the cohort was high-CV-risk older Han Chinese, so the large absolute benefit reflects high baseline risk — the RRR is portable but the ARR shrinks in lower-risk patients. The two decisive Singapore caveats: <ul><li>the benefit operates on salt added during <strong>home cooking</strong> — where much local sodium comes from hawker, restaurant and processed food, a patient swapping only their own cooking salt captures less of total intake;</li><li>given our multi-ethnic, RAAS-blocker-heavy, CKD-prevalent population and the absence of biochemical monitoring in the trial, I would <strong>avoid or actively monitor</strong> salt substitutes in chronic kidney disease or potassium-retaining regimens.</li></ul>' }
+          ],
+          model:[
+            { h:'Directness', p:'The PEO is direct and clinically important: in older, high-CV-risk adults or prior-stroke patients (P), does a reduced-sodium salt substitute versus regular salt (E) reduce stroke and death (O)? Critically, the primary outcome is a <strong>hard clinical endpoint</strong> (stroke), not a surrogate such as blood pressure — a real strength. The MACE composite is acceptable because its components (nonfatal stroke, nonfatal ACS, vascular death) are of broadly similar importance and move in the same direction. Direct enough to appraise in full. <strong>Directness — verdict: HIGH.</strong>' },
+            { h:'Internal validity — strengths', p:'Large (20,995 across 600 clusters); central, computer-generated randomisation stratified by county; randomisation performed <strong>after</strong> recruitment and baseline data collection, neutralising the recruitment bias that plagues cluster trials; baseline characteristics balanced between arms; clustering correctly handled in a hierarchical Poisson model; an <strong>objective primary endpoint adjudicated by a committee blinded to allocation</strong>, controlling detection bias despite the open-label design; intention-to-treat analysis; and near-complete follow-up (vital status determined for <em>all</em> participants and &gt;99.9% of scheduled person-time for nonfatal events).' },
+            { h:'Internal validity — weaknesses', p:'Open-label treatment risks <strong>performance bias</strong> through differential behaviour or co-intervention, only partly offset by blinded adjudication and objective endpoints. Serum potassium was not measured serially, so the safety conclusion rests on <em>clinical</em> rather than <em>biochemical</em> hyperkalaemia. Incomplete adherence and some control-group crossover dilute the effect (conservative here, biasing toward the null). Only one formulation (25% KCl) was tested, so no dose-response. Multiplicity adjustment was post hoc, and adjudication information was sometimes limited — though a misclassification analysis found no substantive impact on the primary conclusions. <strong>Internal validity — verdict: HIGH.</strong> The open-label design is well offset by blinded adjudication of objective endpoints, intention-to-treat analysis and near-complete follow-up, so I trust the direction of effect and treat only the magnitude with mild caution.' },
+            { h:'Results', p:'Definite, significant benefit across all three efficacy outcomes, with every confidence interval lying entirely on the benefit side: stroke RR 0.86 (0.77–0.96), MACE RR 0.87 (0.80–0.94), all-cause death RR 0.88 (0.82–0.95). Expressed absolutely, this is roughly one stroke prevented per ~47 people and one death per ~40 people treated over about five years. Hyperkalaemia showed no excess (RR 1.04; 0.80–1.37). The modest SBP fall (−3.34 mmHg) is consistent with a blood-pressure-mediated mechanism, and the effect was consistent across prespecified subgroups.' },
+            { h:'External validity — applicability', p:'The benefit&#39;s magnitude tracks the cohort&#39;s high baseline CV risk; in lower-risk patients the relative reduction holds but the absolute gain falls. For Singapore specifically: the intervention acts on <strong>discretionary salt added in home cooking</strong>, so its real-world yield depends on how much of a patient&#39;s sodium comes from food prepared at home versus hawker/processed sources. And because the trial excluded renal disease and did no potassium monitoring, the safety reassurance does <strong>not</strong> extend to CKD, potassium-sparing diuretics, or RAAS blockers without monitoring — directly relevant in our multi-ethnic, antihypertensive-heavy population. It remains cheap, simple and equitable at population scale. <strong>External validity — verdict: MODERATE.</strong> The relative effect is portable, but the absolute benefit is gated by baseline risk, by how much of a patient’s sodium comes from home cooking, and by renal-safety caveats in our population.' },
+            { h:'Summary', p:'A large, long, methodologically robust cluster RCT whose open-label design is well mitigated by blinded adjudication of objective endpoints and near-complete follow-up. It shows a definite reduction in stroke, major cardiovascular events and death, with no evident hyperkalaemia harm in a renally-screened population. I would favour salt substitution for high-CV-risk patients with normal renal function who cook at home, individualise to baseline risk and dietary pattern, and avoid or monitor it in kidney disease or potassium-retaining regimens — sharing that roughly 1 in 47 avoids a stroke over five years at trivial cost.' }
+          ]
+        },
+        {
+          id:'rct-mammogram-nudge',
+          title:'Pragmatic behavioural nudges to boost overdue mammogram uptake',
+          sample:false, type:'Pragmatic multi-arm RCT', setting:'Singapore tertiary system; overdue screeners',
+          stem:[
+            'You are handed a pragmatic, parallel-group, five-arm randomised clinical trial conducted in Singapore’s integrated tertiary hospital system, testing whether adding behavioural interventions to a one-time personalised mailed reminder increases mammogram uptake among women overdue for biennial screening. 9000 women aged 50–69 with a prior mammogram but none in the past two years were allocated in a 2:1:1:1:1 ratio to: (1) mailed reminder alone; (2) reminder plus a US$7.50 conditional voucher; (3) reminder plus a conditional US$3750 lottery chance; (4) reminder plus motivational videos; or (5) reminder plus a dedicated scheduling hotline. Every arm also received three mobile-app push notifications. The primary outcome was electronic-record-verified mammogram uptake within three months, comparing each of groups 2–5 against group 1.',
+            'You have 60 minutes to appraise it with your checklist, then defend your appraisal to the examiners.'
+          ],
+          citation:'Lee S-C, Lucky SS, Zhu J, et al. Pragmatic Interventions to Boost Surveillance Mammogram Uptake Among an Overdue Population: A Randomized Clinical Trial. JAMA Intern Med. Published online November 10, 2025. doi:10.1001/jamainternmed.2025.5873',
+          articleLink:'https://doi.org/10.1001/jamainternmed.2025.5873',
+          probes:[
+            { q:'What is the comparison in this trial, and what can it therefore conclude — and crucially, what can it not?',
+              a:'There is <strong>no no-intervention control arm</strong>. Every group received the mailed reminder plus push notifications; groups 2–5 simply added one further component. So the trial tests the <strong>incremental</strong> value of each add-on <em>over a reminder</em> — not whether reminding works at all. The group-1 uptake of 11.2% has nothing to be measured against, so the popular reading that "a mailed reminder is effective" is <strong>not established</strong> by this design — that figure could reflect background scheduling, secular trends, or the push notifications. The authors concede this. The defensible conclusion is narrow: adding a voucher, lottery, video or hotline did not increase uptake beyond reminder-plus-notifications.' },
+            { q:'Walk through the internal validity. Does the absence of blinding threaten the result?',
+              a:'Strengths: computer-generated randomisation in a 2:1:1:1:1 ratio, baseline groups well balanced, intention-to-treat analysis, a large sample (9000), and — importantly — an <strong>objective, record-verified</strong> primary outcome. Behavioural interventions cannot blind participants, but because the outcome is an objective EMR entry rather than a subjective report, <strong>detection bias is minimal</strong> — and that is the protection that matters most here. The real validity threats are therefore not blinding but (a) the missing control arm, (b) <strong>allocation concealment that is never described</strong> — randomisation is mentioned but not whether the sequence was concealed from those allocating, partly mitigated by the cohort being randomised in one batch rather than recruited sequentially — and (c) heavy non-engagement diluting the contrasts.' },
+            { q:'Groups 2–4 showed no significant benefit. Does that prove the interventions do not work — and how do you read the multiplicity handling?',
+              a:'A non-significant <em>superiority</em> result is <strong>not</strong> proof of no effect — it may be inconclusive or underpowered. Crucially, the power calculation <strong>assumed 20% uptake in group 1, but actual uptake was only 11.2%</strong> — so far fewer events accrued than planned. The trial was powered to detect a <strong>5% absolute</strong> difference at that assumed 20% baseline; at the true ~11% baseline a comparable relative effect (e.g. RR 1.25) is under 3 absolute points, which it was never powered to detect — and intention-to-treat inclusion of the ~40% who never engaged dilutes further. So the non-significant findings are substantially a <strong>power-and-engagement artefact</strong>, not evidence of no effect. On multiplicity: with four comparisons the authors prespecified a corrected threshold (P&lt;.0125) and additionally applied a Benjamini–Yekutieli adjustment. Note the tension at group 5 (hotline): RR <strong>1.23 (95% CI 1.07–1.38)</strong> with a CI excluding 1 and an unadjusted P=.01, yet declared non-significant after adjustment — a genuinely borderline finding whose label depends on the correction. Flag that rather than over-claiming either way.' },
+            { q:'The “more than 10 years overdue” subgroup looked dramatically better (RR ~1.84–1.87). How much weight do you give that?',
+              a:'Cautious weight. Among women overdue &gt;10 years, groups 2 and 5 reached RR <strong>1.84 (1.13–3.00)</strong> and <strong>1.87 (1.14–3.07)</strong> versus 4.8% uptake in group 1 — but both were <strong>non-significant after adjustment</strong> (P=.06 and .07), with wide CIs reflecting small event numbers. With many prespecified subgroups and severe multiplicity, these are <strong>hypothesis-generating, not practice-changing</strong> — the classic "torture the data enough and it will confess." The signal is biologically plausible (the most disengaged have the most room to improve), so it earns a targeted future trial, not a present claim.' },
+            { q:'How applicable is this to your practice, and what does the cost analysis add?',
+              a:'Directness is unusually <strong>high</strong> — this is a Singapore study in our own opt-in, subsidised-screening, multi-ethnic context, so SCRAPS transfers far better than most trials. Caveats: participants were mobile-app users within a single tertiary system serving about a third of the population, skewing toward the digitally engaged — so uptake among non-app-users or in other systems may differ; and the 3-month horizon leaves durability unknown. On CFPS/cost: the reminder alone was cheapest (≈$742 per 1000); cost per <em>additional</em> mammogram was about $182 (voucher), $212 (hotline) and $3209 (lottery), with videos <strong>dominated</strong> (costlier and less effective). But because the between-group differences were largely non-significant, those incremental cost figures rest partly on noise. For practice: adopt the low-cost reminder as a default nudge, and reserve the hotline for hard-to-reach subgroups where the added cost is justified.' }
+          ],
+          model:[
+            { h:'Directness', p:'The PEO is direct and clinically meaningful: in women overdue for biennial mammography (P), do behavioural add-ons layered on a personalised mailed reminder, versus the reminder alone (E/C), increase mammogram uptake (O)? The outcome is a genuine behavioural endpoint — an actual completed, record-verified mammogram — not a surrogate, which is a strength. The decisive design caveat to state up front is that there is <strong>no no-intervention control</strong>, so the trial addresses the <em>incremental</em> value of add-ons over a reminder, not the effect of reminding versus nothing. I carry that explicitly into how I read the headline. <strong>Directness — verdict: HIGH.</strong>' },
+            { h:'Internal validity — strengths', p:'Large (9000 women), computer-generated randomisation in a 2:1:1:1:1 ratio, baseline characteristics well balanced across the five arms, intention-to-treat analysis, and an <strong>objective EMR-verified primary outcome</strong> that largely neutralises the unavoidable lack of participant blinding in a behavioural trial. The team prespecified a multiplicity-corrected significance threshold (P&lt;.0125) and applied a Benjamini–Yekutieli adjustment, and reported to CONSORT — all signs of methodological discipline.' },
+            { h:'Internal validity — weaknesses', p:'Several limitations cluster around what the trial can conclude. First, there is <strong>no true control arm</strong> — every group received the reminder and notifications — so the design cannot show that reminding works, only whether the add-ons add anything. Second, <strong>allocation concealment is not described</strong>: randomisation used a random-number generator with assignment by the same research staff, but the paper does not state that the sequence was concealed from those enrolling or allocating. The practical risk is reduced (though not removed) by the fact that the whole eligible cohort was identified from records and randomised in one batch rather than recruited sequentially — but as appraised, this is an unreported item I would flag. Third, intention-to-treat combined with very low engagement (click-through ≈4%, webpage views &lt;5%, an assumed ~40% mailer non-engagement) <strong>dilutes effects toward the null</strong>. Add the many prespecified subgroups (spurious-positive risk), a waived consent (defensible for a minimal-risk pragmatic design), and a group-5 verdict that depends on the multiplicity correction. But the single most consequential weakness is the trial’s power — addressed next.' },
+            { h:'Power — the decisive weakness', p:'<strong>The sample size assumed 20% uptake in group 1; the actual uptake was 11.2%.</strong> The trial was powered for 80% to detect a 5-percentage-point absolute difference against that assumed 20% baseline (i.e. 20% vs 25%). With true baseline uptake roughly half the assumption, far fewer events accrued than planned, and a comparable <em>relative</em> effect — say RR 1.25 — now corresponds to only ~11%→14%, under 3 absolute points, which the trial was never powered to detect. Compound that with intention-to-treat inclusion of the ~40% who never engaged with the mailer, and the <strong>effective power to detect the modest effects that plausibly exist fell well below the nominal 80%.</strong> This is precisely why the non-significant findings for groups 2–4, and the borderline group 5, <strong>cannot be read as evidence of no effect</strong> — absence of a detected difference here is substantially a power-and-engagement artefact, not proof of equivalence. It is the most important single caveat on the headline. <strong>Internal validity — verdict: MODERATE.</strong> The randomisation, baseline balance, intention-to-treat handling and objective outcome make the within-trial data themselves trustworthy, but the absent control arm, undescribed allocation concealment and — above all — the underpowering pull confidence in the <em>negative</em> conclusion firmly down.' },
+            { h:'Results', p:'Uptake was 11.2% (reminder alone), 12.1% (voucher), 11.3% (lottery), 10.8% (videos) and 13.8% (hotline). None of groups 2–4 differed significantly from group 1 (RRs 1.08, 1.01, 0.96). Group 5 reached RR 1.23 (95% CI 1.07–1.38, unadjusted P=.01) but was declared non-significant after multiplicity adjustment. Among women &gt;10 years overdue, groups 2 and 5 showed RR ~1.84–1.87 (CIs 1.13–3.00 and 1.14–3.07) versus 4.8% in group 1, again non-significant after adjustment. Cost per additional mammogram: voucher ~$182, hotline ~$212, lottery ~$3209; motivational videos were dominated.' },
+            { h:'External validity — applicability', p:'Directness to a Singapore FCFP candidate is unusually high — the same opt-in, subsidised, multi-ethnic screening setting — so the estimates transfer better than most trials we appraise. But participants were app-using patients of one tertiary system covering roughly a third of the population, over-representing the digitally engaged, so uptake among non-app-users may well differ; the three-month window also leaves durability unknown. On CFPS, a mailed reminder is cheap, feasible, practical and sustainable at population scale; the scheduling hotline looks effective but is costlier and harder to scale, so it is best reserved for refractory subgroups such as the long-overdue. <strong>External validity — verdict: MODERATE.</strong> The Singapore setting makes contextual relevance unusually high, but the app-user selection, single tertiary system and three-month horizon hold it back from HIGH.' },
+            { h:'Summary', p:'A large, well-randomised pragmatic multi-arm RCT with an objective outcome, whose central message is appropriately modest: layering vouchers, lotteries, videos or a scheduling hotline onto a personalised mailed reminder did not significantly increase mammogram uptake — and a null result here is partly a power-and-engagement story rather than proof of no effect. Because there is no no-intervention arm, the trial cannot show that the reminder itself works, only that the add-ons added little. In my practice I would adopt the low-cost reminder as a default nudge, watch the borderline hotline signal in the long-overdue group, and treat the cost-per-mammogram figures cautiously given the non-significant differences.' }
+          ]
+        },
+        {
+          id:'rct-hope3-statin',
+          title:'Fixed-dose statin for primary prevention in intermediate-risk persons (HOPE-3)',
+          sample:false, type:'Double-blind placebo-controlled RCT (2×2 factorial)', setting:'Intermediate-risk, no CVD; 21 countries',
+          stem:[
+            'You are handed one comparison from a large, pragmatic, double-blind, placebo-controlled randomised trial with a 2×2 factorial design (the HOPE-3 trial), testing whether a fixed low dose of rosuvastatin (10 mg/day, with no lipid targets and no routine monitoring) prevents cardiovascular events in people without established cardiovascular disease who are at intermediate risk (about a 1% annual risk of a major cardiovascular event). Eligibility was defined by age and risk factors: men aged 55 or older and women aged 65 or older with at least one cardiovascular risk factor (such as a raised waist-to-hip ratio, low HDL, current or recent smoking, dysglycaemia, a family history of premature coronary disease, or mild renal impairment), or women aged 60 or older with at least two such factors. 12,705 participants across 21 countries and six continents — about half women and roughly 80% non-white — were randomised to rosuvastatin or placebo after a 4-week active run-in, and followed for a median of 5.6 years. The first coprimary outcome was a composite of cardiovascular death, nonfatal myocardial infarction or nonfatal stroke; the second additionally included revascularisation, heart failure and resuscitated cardiac arrest.',
+            'You have 60 minutes to appraise it with your checklist, then defend your appraisal to the examiners.'
+          ],
+          citation:'Yusuf S, Bosch J, Dagenais G, et al. Cholesterol Lowering in Intermediate-Risk Persons without Cardiovascular Disease (HOPE-3). N Engl J Med. 2016;374(21):2021-2031.',
+          articleLink:'https://doi.org/10.1056/NEJMoa1600176',
+          probes:[
+            { q:'This is one comparison from a 2×2 factorial trial. What does that design buy you, and what must you check before trusting the cholesterol result on its own?',
+              a:'A factorial design tests <strong>two interventions in one trial</strong> (here, cholesterol-lowering and blood-pressure-lowering), which is efficient and lets you study each main effect and their combination. Before reading the rosuvastatin-vs-placebo comparison on its own you must check for an <strong>interaction</strong> between the two interventions — if the blood-pressure arm modified the statin effect, the main effect would be misleading. Here there was <strong>no significant interaction</strong>, and the analysis was a Cox model <strong>stratified by the opposite factorial arm</strong>, so the cholesterol comparison stands on its own.' },
+            { q:'Participants went through a 4-week active run-in before randomisation. How does that cut both ways?',
+              a:'The run-in enrolled only people who <strong>tolerated and adhered</strong> to the regimen. That <strong>tightens internal validity</strong> — less dropout and contamination, a cleaner estimate — but it <strong>limits generalisability</strong>: real-world patients include the intolerant and non-adherent, so the trial’s adherence and its low muscle-symptom/discontinuation rates likely flatter what you would see in clinic.' },
+            { q:'The coprimary composites were significant, but all-cause mortality was not. How do you interpret that?',
+              a:'The composites combine outcomes of <strong>differing importance</strong> (cardiovascular death down to revascularisation), and the benefit is driven substantially by nonfatal MI, stroke and revascularisation. All-cause mortality was <strong>not</strong> significantly reduced (HR 0.93, 95% CI 0.80–1.08) — the trial was not powered for mortality and 5.6 years may be too short to show it. The honest statement is that rosuvastatin reduced major cardiovascular <em>events</em>; a mortality benefit was not demonstrated here.' },
+            { q:'How precise and how large is the effect in absolute terms, and which way is it biased?',
+              a:'Both estimates are tight and entirely on the benefit side: first coprimary HR <strong>0.76 (0.64–0.91)</strong>, NNT ≈91; second HR <strong>0.75 (0.64–0.88)</strong>, NNT ≈73 — over ~5.6 years. The absolute benefit is <strong>modest</strong>, reflecting intermediate (not high) baseline risk. Analysis was intention-to-treat with only ~82% separation in statin use mid-trial, so non-adherence and placebo-group drop-in <strong>dilute the effect toward the null</strong> — conservative for a superiority trial, meaning the on-treatment effect is plausibly larger (the authors note 86 first vs 120 total events for the second coprimary, so time-to-first-event understates the benefit).' },
+            { q:'Would you apply this in your practice, and what about the safety signals and the no-monitoring approach?',
+              a:'Unusually applicable: the population was <strong>diverse</strong> (~80% non-white, roughly half Asian and ~29% Chinese), directly relevant to Singapore, and the intervention is a <strong>fixed low dose without lipid targets or routine monitoring</strong> using a cheap generic — primary-care-friendly and scalable. But it applies to <strong>intermediate-risk</strong> patients (~1%/yr events) within an <strong>older eligibility window</strong> (men ≥55, women ≥65, or women ≥60 with ≥2 risk factors), so it does <strong>not</strong> support statin primary prevention in younger patients — directly relevant in Singapore, where cardiovascular screening is typically encouraged from age 40. Risk-stratify before extrapolating, and remember the absolute gain is modest. Safety was reassuring — <strong>no excess of new-onset diabetes</strong>, a small excess of muscle symptoms without excess discontinuation — with an <strong>unexplained excess of cataract surgery</strong> (3.8% vs 3.1%) of uncertain significance worth mentioning honestly. Industry co-funding (AstraZeneca supplied the drug and held one steering-committee vote) is mitigated by academic governance, analysis and data access.' }
+          ],
+          model:[
+            { h:'Directness', p:'The PEO is direct and clinically central: in people without cardiovascular disease who are at intermediate risk and have largely normal lipids (P), does fixed-dose rosuvastatin 10 mg versus placebo (E/C) reduce major cardiovascular events (O)? The outcomes are <strong>hard, adjudicated composite cardiovascular endpoints</strong>, not a surrogate — LDL change is reported only as a mechanistic check. This is exactly the primary-prevention decision a family physician faces, and the trial was purpose-built to test whether statin benefit extends to an intermediate-risk, ethnically diverse, normal-lipid population. <strong>Directness — verdict: HIGH.</strong>' },
+            { h:'Internal validity — strengths', p:'Large (12,705), pragmatic, multicentre and international; <strong>double-blind, placebo-controlled</strong>; central randomisation with a Cox model stratified by the opposite factorial arm; an efficient <strong>2×2 factorial</strong> design with no significant interaction, so the cholesterol comparison reads cleanly on its own; <strong>intention-to-treat</strong>; adjudicated outcomes; multiplicity handled by splitting alpha across the two coprimary outcomes (0.04 and 0.02); well powered (designed for a 22.5% relative reduction, comfortably met) with near-complete follow-up (vital status for 99.1%).' },
+            { h:'Internal validity — weaknesses', p:'The 4-week active run-in selected adherent, tolerant participants, but because it <em>preceded</em> randomisation it cannot bias the randomised comparison — both arms are drawn from the same selected pool — so its cost falls on external validity (below), not here. ITT with only ~82% separation in statin use mid-trial (non-adherence plus placebo-group drop-in) <strong>dilutes the effect toward the null</strong> — conservative here, so the true effect is likely larger. The coprimary outcomes are <strong>composites</strong> whose components differ in importance. A secondary outcome (angina with ischaemia) was added and a renal outcome dropped in 2015 — but <em>before unblinding</em>, which is acceptable. AstraZeneca co-funded the trial and supplied the drug with a single steering-committee vote, mitigated by academic governance, analysis at the Population Health Research Institute and data access by academic authors. <strong>Internal validity — verdict: HIGH.</strong>' },
+            { h:'Results', p:'Rosuvastatin lowered LDL by 26.5% (mean difference ~34.6 mg/dL). The first coprimary outcome occurred in 3.7% versus 4.8% (HR 0.76, 95% CI 0.64–0.91; NNT ≈91 over 5.6 years) and the second in 4.4% versus 5.7% (HR 0.75, 0.64–0.88; NNT ≈73), with consistent benefit across components (MI HR 0.65, stroke 0.70, revascularisation 0.68) and across subgroups including ethnicity, baseline risk, LDL, blood pressure and CRP. All-cause mortality was not significantly reduced (HR 0.93, 0.80–1.08), and there was no excess of new-onset diabetes (HR 1.02). Safety: a small excess of muscle symptoms (5.8% vs 4.7%) without excess discontinuation, and an unexplained excess of cataract surgery (3.8% vs 3.1%) of uncertain significance.' },
+            { h:'External validity — applicability', p:'This is the trial’s standout strength. Conducted across 21 countries and six continents, with ~46% women and ~80% non-white participants (≈49% Asian, ≈29% Chinese), it is <strong>directly relevant to Singapore’s multi-ethnic population</strong> and explicitly answers whether statin benefit extends to such groups — it does. A fixed low dose with no lipid targets and <strong>no routine monitoring</strong>, using a now-cheap generic, makes it simple, affordable and primary-care-friendly. But the applicability is bounded by who was actually enrolled. First, <strong>eligibility was age-defined</strong> — men aged 55 or older and women aged 65 or older with at least one risk factor, or women aged 60 or older with at least two — so the result <strong>cannot be extrapolated to younger patients</strong>. This matters in Singapore, where cardiovascular screening is typically encouraged from age 40: a person in their 40s found to have dyslipidaemia on screening falls <em>outside</em> this trial’s population, and HOPE-3 does not by itself justify statin primary prevention in that younger group. Second — and this is the key distinction — the 4-week active run-in selected adherent, tolerant patients, but because it occurred <em>before</em> randomisation it does <strong>not</strong> bias the randomised comparison (both arms are drawn from the same selected pool, so internal validity is preserved). Its cost lands <em>here</em>, on external validity: the trial population is enriched for tolerant adherers, so real-world tolerability and adherence will be lower and the trial’s safety and adherence figures are correspondingly optimistic. A pre-randomisation run-in is a generalisability caveat, not an internal-validity flaw. Third, the benefit applies to <strong>intermediate-risk</strong> patients (~1%/yr events) with a modest absolute gain (NNT ≈91 over ~5.6 years), so risk-stratify before extrapolating. <strong>External validity — verdict: HIGH</strong> — high within the trial’s age and risk window; the bound on younger patients is a limit of scope, not of trial quality.' },
+            { h:'Summary', p:'A large, rigorous, double-blind placebo-controlled superiority RCT — efficient factorial design, intention-to-treat, adjudicated outcomes, near-complete follow-up — showing that fixed-dose rosuvastatin 10 mg reduces major cardiovascular events in an intermediate-risk, ethnically diverse, largely normal-lipid primary-prevention population, without a demonstrated mortality benefit and with a reassuring metabolic safety profile. Its diversity and its low-cost, no-monitoring design make it unusually applicable to Singapore primary care. I would offer it to intermediate-risk patients after individual risk stratification and a shared discussion of the modest absolute benefit, the small muscle-symptom signal, and the uncertain cataract finding.' }
+          ]
+        },
+        {
+          id:'rct-jupiter-diabetes-benefit-risk',
+          title:'Statin cardiovascular benefit vs diabetes risk (JUPITER secondary analysis)',
+          sample:false, type:'Secondary post-hoc subgroup analysis of an RCT (benefit–risk)', setting:'Primary prevention; elevated hsCRP, no diabetes',
+          stem:[
+            'You are handed a 2012 analysis drawn from the JUPITER trial — a randomised, double-blind, placebo-controlled trial of rosuvastatin 20 mg daily versus placebo in 17,802 apparently healthy adults with LDL cholesterol below 3.37 mmol/L and high-sensitivity CRP of 2 mg/L or higher, and no prior cardiovascular disease or diabetes. This analysis (17,603 participants with complete data) weighs the cardiovascular and mortality benefit of rosuvastatin against its hazard of new-onset diabetes, stratifying participants by whether they had none, or at least one, of four major diabetes risk factors (metabolic syndrome, impaired fasting glucose, BMI ≥30, or HbA1c >6%). The diabetes endpoint was a pre-specified secondary endpoint of JUPITER; the risk-factor stratification was chosen post hoc. Median follow-up in the parent trial was about 2 years.',
+            'You have 60 minutes to appraise it with your checklist, then defend your appraisal to the examiners.'
+          ],
+          citation:'Ridker PM, Pradhan A, MacFadyen JG, Libby P, Glynn RJ. Cardiovascular benefits and diabetes risks of statin therapy in primary prevention: an analysis from the JUPITER trial. Lancet. 2012;380(9841):565-571.',
+          articleLink:'https://doi.org/10.1016/S0140-6736(12)61190-8',
+          probes:[
+            { q:'What type of study is this, and why does that matter more than the fact that it comes from a randomised trial?',
+              a:'It is a <strong>secondary, post-hoc subgroup analysis</strong> of the JUPITER double-blind RCT, presented as a <strong>benefit–risk (net clinical benefit) analysis</strong> — <em>not</em> a nested case-control study, since essentially the whole trial population was analysed, not a sampled case set. Why it matters: the randomised comparison is high quality, but the <strong>risk-factor stratification was chosen post hoc</strong>, so the subgroup findings are <strong>hypothesis-generating, not confirmatory</strong> — "it came from an RCT" does not by itself upgrade a post-hoc subgroup to high-grade evidence; you judge it on the interaction test, biological plausibility and consistency.' },
+            { q:'Which parts are pre-specified and which are post hoc, and how does that change your trust in each finding?',
+              a:'The <strong>diabetes endpoint itself was a pre-specified secondary endpoint</strong> of JUPITER — that protects against outcome cherry-picking and lends it credibility. The <strong>four-risk-factor stratification was explicitly post hoc</strong> (the authors say so). So the overall diabetes hazard (HR 1.25) rests on firmer ground than the more specific claim that the hazard is <em>confined</em> to those with diabetes risk factors — the latter is a post-hoc subgroup observation, to be treated as hypothesis-generating.' },
+            { q:'The cardiovascular benefit looked larger in the no-risk-factor group (HR 0.48) than the risk-factor group (HR 0.61). Is the statin more effective in people without diabetes risk factors?',
+              a:'No — resist that reading. The <strong>test for interaction was non-significant (p=0.28)</strong>, so the apparent difference is compatible with chance; the relative cardiovascular benefit is <strong>similar across subgroups</strong>. The correct interpretation is consistency of benefit, not effect modification. By contrast, the <strong>diabetes</strong> signal genuinely tracks the subgroups (concentrated in impaired fasting glucose, rising with the number of risk factors), which is biologically coherent — but is still a subgroup inference.' },
+            { q:'How do you summarise the net clinical benefit, and what is the catch in counting “events avoided” against “diabetes caused”?',
+              a:'In those with ≥1 diabetes risk factor, 134 vascular events or deaths were avoided for every 54 new diabetes diagnoses; in those with none, 86 events or deaths avoided with no excess diabetes — so benefit exceeded hazard in both strata. The catch is that this <strong>equates events of differing severity</strong>: myocardial infarction, stroke and death are weighed one-for-one against a diabetes diagnosis (sometimes only a biochemical threshold crossing). The authors deliberately left them <em>unweighted</em> (to avoid injecting a subjective value judgement) and were otherwise conservative (counting all physician-reported diabetes, using the larger in-trial HR) — but a count of "events" still hides a judgement about how bad each one is.' },
+            { q:'How applicable is this, and what are the boundaries?',
+              a:'I would call applicability <strong>low</strong>. The entry criterion <strong>hsCRP ≥2 mg/L</strong> is not measured routinely in our practice, so the trial population is defined by a test I do not use; participants had <strong>normal LDL</strong> (below 3.37 mmol/L, median ~2.8) yet received <strong>high-intensity rosuvastatin 20 mg</strong>, which local guidelines would not ordinarily prescribe for an apparently-healthy, normal-LDL group; and the at-risk subgroup skewed female (41% vs 32%) with a metabolic-syndrome phenotype (a possible post-menopausal contribution, though age was identical at 66 in both strata). Add one drug at one dose, a ~2-year median follow-up, and AstraZeneca funding (mitigated by independent academic analysis). What <em>does</em> transfer is the principle — benefit outweighs the diabetes hazard, which concentrates in those with pre-existing dysglycaemia — useful for counselling and for selective glucose monitoring in patients you do treat.' }
+          ],
+          model:[
+            { h:'Directness & design', p:'First, name the design: this is a <strong>secondary, post-hoc subgroup analysis</strong> of the JUPITER double-blind, placebo-controlled RCT, framed as a <strong>benefit–risk analysis</strong> — not a nested case-control study, since the whole trial population was analysed. The question is direct and topical: in primary prevention, does the cardiovascular and mortality benefit of rosuvastatin outweigh its hazard of new-onset diabetes, and does that balance differ by baseline diabetes risk? The outcomes are patient-important (cardiovascular events, death, incident diabetes). The crucial framing move is that <strong>randomised parentage does not make the subgroup findings confirmatory</strong> — the stratification was post hoc, so those findings are hypothesis-generating. <strong>Directness — verdict: HIGH.</strong>' },
+            { h:'Internal validity — strengths', p:'The parent comparison is strong: a large (17,603 analysed), <strong>randomised, double-blind, placebo-controlled</strong> trial with cardiovascular endpoints <strong>adjudicated by a committee blinded to allocation</strong> and near-complete data (99%). The <strong>diabetes endpoint was pre-specified</strong>, not a fishing expedition, and its ascertainment was deliberately <strong>conservative</strong> — all physician-reported cases counted (including those without biochemical confirmation and those reported after closeout), and the larger in-trial diabetes HR (1.25) used rather than the smaller meta-analytic estimate — all biasing <em>against</em> missing a hazard. A formal <strong>interaction test</strong> was reported for the cardiovascular benefit, and the finding among those who developed diabetes (CV benefit preserved, HR 0.63) adds internal consistency.' },
+            { h:'Internal validity — weaknesses', p:'The decisive caveat is that the <strong>risk-factor stratification was chosen post hoc</strong>, so the claim that the diabetes hazard is confined to those with diabetes risk factors is <strong>hypothesis-generating</strong> — vulnerable to multiplicity and chance, and credible here only because it is biologically coherent (concentrated in impaired fasting glucose), graded by the number of risk factors, and internally consistent. Diabetes was <strong>physician-reported</strong> rather than systematically biochemically confirmed (conservative for the hazard, but less precise). The benefit–risk tallies <strong>count events of differing severity equally</strong> (MI, stroke and death against a diabetes diagnosis), an unavoidable value judgement left unweighted. And the work was funded by AstraZeneca with significant investigator conflicts — mitigated by independent academic analysis, full data access and the sponsor having no role in these analyses, but to be noted. None of this corrupts the <em>randomised</em> comparison. <strong>Internal validity — verdict: HIGH</strong> for the randomised benefit and hazard estimates; the subgroup localisation is sound but remains hypothesis-generating.' },
+            { h:'Results', p:'Overall, rosuvastatin increased incident diabetes (270 vs 216; HR 1.25, 95% CI 1.05–1.49) and brought diagnosis forward by about 5 weeks. Among those with <strong>≥1 diabetes risk factor</strong>, the primary cardiovascular endpoint fell 39% (HR 0.61, 0.47–0.79) with a 28% rise in diabetes (HR 1.28, 1.07–1.54) — 134 vascular events or deaths avoided per 54 new diabetes cases. Among those with <strong>no risk factor</strong>, the endpoint fell 52% (HR 0.48, 0.33–0.68) with <strong>no excess diabetes</strong> (HR 0.99, 0.45–2.21) — 86 events or deaths avoided, none caused. The cardiovascular benefit did not differ significantly between subgroups (interaction p=0.28), and the excess diabetes risk was concentrated in those with impaired fasting glucose, rising with the number of risk factors. Even among the 486 who developed diabetes, the cardiovascular benefit persisted (HR 0.63, 0.25–1.60).' },
+            { h:'External validity — applicability', p:'Here applicability is <strong>low</strong>, for reasons beyond the usual caveats. First, the trial’s defining entry criterion — <strong>hsCRP ≥2 mg/L</strong> — is not measured routinely in primary care here, so I could not identify "the JUPITER patient" in clinic; the population is delimited by a test I do not use. Second, participants were enrolled with <strong>LDL below 3.37 mmol/L</strong> (median ~2.8) yet treated with <strong>high-intensity rosuvastatin 20 mg</strong> — in an apparently-healthy, normal-LDL primary-prevention group, local guidelines would not ordinarily reach for a high-intensity statin, so both the population and the dose sit awkwardly against everyday practice (noting that low LDL alone does not equal low <em>global</em> risk, which is stratified more broadly). Third, the diabetes-risk subgroup skewed <strong>female</strong> (41% vs 32%) with a metabolic-syndrome phenotype (higher BMI, glucose, triglycerides, lower HDL), consistent with — though not proof of — a post-menopausal metabolic contribution; the median age was the same (66) in both strata, so this is a sex/phenotype difference, not an age one, and it characterises <em>who</em> is at diabetes risk rather than biasing the randomised comparison. What <em>does</em> travel is the conceptual reassurance — in primary prevention the cardiovascular benefit outweighs the diabetes hazard, which concentrates in those with pre-existing dysglycaemia — useful for selective glucose monitoring in any patient you do start, alongside the further limits of one drug at one dose, a ~2-year median follow-up, and AstraZeneca funding (mitigated by independent academic analysis). <strong>External validity — verdict: LOW</strong> (the specific population and high-intensity regimen map poorly onto local practice; the benefit–risk principle is the part that transfers).' },
+            { h:'Summary', p:'A secondary, post-hoc subgroup analysis of a high-quality double-blind RCT, framed as a benefit–risk analysis, showing that in primary prevention the cardiovascular and mortality benefit of rosuvastatin outweighs its diabetes hazard — and that the hazard is largely confined to those already at high diabetes risk. The randomised benefit and hazard estimates are trustworthy; the subgroup localisation of the hazard is biologically coherent but hypothesis-generating. Its <strong>direct applicability is limited</strong> — an hsCRP-defined, normal-LDL population treated with a high-intensity dose maps poorly onto routine practice — but the transportable principle stands: benefit outweighs the diabetes hazard, so I would reassure appropriately-selected patients and monitor glucose selectively in those with pre-existing dysglycaemia.' }
+          ]
+        }
+      ]},
+      { id:'systematic-review', label:'Systematic Review', type:'SR / Meta-analysis', blurb:'Search strategy, study selection, heterogeneity (I²), risk of bias, pooling.', items:[] },
+      { id:'diagnosis', label:'Diagnosis', type:'Diagnostic accuracy', blurb:'Reference standard, blinding, spectrum bias, sensitivity/specificity, likelihood ratios.', items:[] },
+      { id:'harm', label:'Harm / Aetiology', type:'Cohort / Case-control', blurb:'Exposure measurement, confounding, dose–response, temporality, odds/relative risk.', items:[] },
+      { id:'prognosis', label:'Prognosis', type:'Cohort', blurb:'Inception cohort, follow-up completeness, outcome blinding, survival estimates.', items:[] }
+    ]
+  },
+  {
+    id:'pel', accent:'pel',
+    label:'Professionalism, Ethics & Leadership',
+    sub:'PEL Scenarios',
+    blurb:'Two scenarios on the day, answered on the spot (~10 minutes each). Professionalism is woven through ethics and leadership scenarios alike. Browse by domain, then by the specific issue being tested.',
+    children:[
+      {
+        id:'professionalism', label:'Professionalism', blurb:'Boundaries, conduct, the doctor in difficulty — the thread that runs through every PEL scenario.',
+        children:[
+          { id:'boundaries', label:'Boundaries & Social Media', blurb:'Patient relationships, gifts, online conduct, dual relationships.', items:[] },
+          { id:'colleague-in-difficulty', label:'Colleague in Difficulty', blurb:'Impaired, underperforming, or unwell colleagues; duty to act vs collegiality.', items:[] }
+        ]
+      },
+      {
+        id:'ethics', label:'Ethics', blurb:'The four principles, capacity, consent, confidentiality and emerging issues — applied to a concrete case.',
+        children:[
+          { id:'mental-capacity', label:'Mental Capacity', blurb:'Assessing capacity, the Mental Capacity Act, best interests, surrogate decisions.', items:[
+            {
+              id:'sample-capacity-refusal',
+              title:'Elderly patient refusing admission for sepsis',
+              sample:true, setting:'Polyclinic, family member present',
+              stem:[
+                'An 82-year-old man with early dementia presents with a fever and a likely urinary-source sepsis. He is adamant he wants to go home and refuses admission. His daughter insists he "is not in his right mind" and demands he be admitted against his wishes.',
+                'Discuss how you would approach this situation.'
+              ],
+              probes:[
+                { q:'How would you assess this patient\u2019s decision-making capacity?',
+                  a:'Apply the functional, decision-specific test: can he <strong>understand</strong> the information, <strong>retain</strong> it, <strong>weigh</strong> it, and <strong>communicate</strong> a choice? Capacity is presumed and is specific to this decision at this time — a dementia diagnosis does not by itself remove it.' },
+                { q:'If he is found to have capacity, how do you proceed?',
+                  a:'A capacitous adult may refuse treatment even if the decision seems unwise. Document the assessment, ensure he understands the risks (including death), offer alternatives (oral antibiotics, early review, safety-netting), and respect the refusal while keeping the door open.' },
+                { q:'How do you handle the daughter\u2019s demand?',
+                  a:'Acknowledge her concern empathically; explain confidentiality and the patient\u2019s autonomy without being dismissive. Explore whether there is an LPA or advance directive. Avoid being drawn into acting against a capacitous patient\u2019s wishes; manage the family relationship as part of the professionalism thread.' }
+              ],
+              model:[
+                { h:'Framing the issue', p:'This scenario sits at the intersection of <strong>autonomy</strong> and <strong>beneficence</strong>, with a professionalism thread running through the family dynamic. The pivotal question is not whether admission is medically advisable — it is — but whether this patient has the <strong>capacity</strong> to refuse it, because that determines whose decision it is.' },
+                { h:'Capacity assessment', p:'I would assess capacity as functional and decision-specific: can he <strong>understand</strong> the relevant information, <strong>retain</strong> it long enough to use it, <strong>weigh</strong> it in the balance, and <strong>communicate</strong> a choice? Capacity is presumed, and a diagnosis of dementia does not by itself remove it. I would optimise the assessment (treat delirium, hearing aids, quiet setting) before concluding.' },
+                { h:'Acting on the finding', p:'If he <strong>retains capacity</strong>, a competent adult may refuse treatment even when the refusal appears unwise; I would ensure he understands the risks including death, offer the least-restrictive alternatives (oral antibiotics, early review, clear safety-netting), document carefully, and respect his decision. If he <strong>lacks capacity</strong>, I would act in his best interests, consult any LPA/advance directive, and involve the family as part of — not in place of — a best-interests process.' },
+                { h:'Managing the family', p:'I would engage the daughter empathically, acknowledge that her concern comes from love, and explain the principles of confidentiality and autonomy without dismissing her. Distress at a parent\u2019s choice is understandable; my role is to be honest about what I can and cannot do while keeping the therapeutic relationship intact.' },
+                { h:'Summary', p:'The decision turns on a careful, optimised capacity assessment. Where capacity is intact I respect an informed refusal and safety-net; where it is absent I act in best interests with appropriate consultation — handling the family with candour and compassion throughout.' }
+              ]
+            },
+            {
+              id:'capacity-cataract-refusal',
+              title:'Refusing cataract surgery — capacity, an LPA donee, and best interests',
+              setting:'Clinic; early dementia, daughter present',
+              stem:[
+                'Madam Tan is a 78-year-old woman with early-stage vascular dementia, hypertension, and severe bilateral cataracts. Her vision has deteriorated significantly, leading to two recent minor falls at home. You, her family physician, strongly recommend cataract surgery to restore her vision, improve her quality of life, and reduce her fall risk.',
+                'During today’s consultation Madam Tan adamantly refuses surgery: "I am old already. I don’t want anyone cutting my eyes. Just let me go blind."',
+                'Her daughter, Ms Lee, the primary caregiver, is furious. She insists the surgery must be done for her mother’s safety: "She doesn’t know what she is talking about because of her dementia! Doctor, just make the referral to Ophthalmology — I am going to bring her over and sign for her anyway. I am her donee under the Lasting Power of Attorney."',
+                'Outline your steps in managing this situation, with your rationale and approach, and highlight the nuanced areas for discussion.'
+              ],
+              probes:[
+                { q:'How would you systematically assess Madam Tan’s capacity to refuse the surgery, and what functional abilities must she demonstrate?',
+                  a:'Capacity is <strong>presumed</strong>, and it is <strong>decision-specific and time-specific</strong> — her dementia label does not by itself remove it. I apply the functional test: can she <strong>understand</strong> the relevant information, <strong>retain</strong> it long enough to use it, <strong>use or weigh</strong> it in arriving at a choice, and <strong>communicate</strong> that choice? I would first <strong>optimise</strong> the assessment — treat any reversible contributors, choose her best time of day, a quiet setting, simple language and aids — and, importantly, assess her <strong>alone, away from her daughter’s pressure</strong>.' },
+                { q:'What constitutes material information before there can be valid informed consent?',
+                  a:'Material information is what <em>this</em> patient would reasonably want to know, not a generic list. I would cover the nature and purpose of cataract surgery, its <strong>material benefits</strong> (restored vision, reduced fall risk, quality of life) and <strong>risks</strong>, the <strong>alternatives</strong> — including non-surgical fall-risk reduction and the option of doing nothing — and the <strong>consequences of refusal</strong>. Consent is valid only if she has been given, and can weigh, this information.' },
+                { q:'Before acting on Ms Lee’s instruction, what must you verify about the LPA?',
+                  a:'Several things: that the LPA is <strong>valid and registered</strong> with the Office of the Public Guardian; that it covers <strong>personal welfare / healthcare</strong> decisions (an LPA may be limited to property and affairs); that any <strong>scope or restrictions</strong> do not exclude this decision; and — crucially — that the donee’s authority is <strong>only operative once Madam Tan lacks capacity</strong>. Even then, a donee must act in the donor’s <strong>best interests</strong>, and cannot <strong>compel</strong> a treatment that is not clinically indicated.' },
+                { q:'If she lacks capacity and Ms Lee is a valid welfare donee demanding surgery, how does the best-interests framework guide the decision — and how do you ensure it reflects Madam Tan’s interests, not her daughter’s preference?',
+                  a:'A best-interests decision must not rest on age or the dementia label. I would consider whether she may <strong>regain capacity</strong> (and whether the decision can wait); her <strong>past and present wishes, beliefs and values</strong>; her welfare in the widest sense (vision, falls, quality of life); and the <strong>least-restrictive</strong> option. I would consult the donee and others who know her. The donee’s role is to decide <strong>for</strong> her in <strong>her</strong> best interests — not to substitute her own preference. The safeguard against the daughter’s wish standing in is to anchor every step in Madam Tan’s own values and to <strong>document the reasoning</strong>; where disagreement is intractable, I would seek a second opinion and, if needed, escalate to the OPG or the courts.' }
+              ],
+              model:[
+                { h:'Framing the tension', p:'This is the case of Madam Tan, and the central tension is <strong>autonomy</strong> — her right to refuse treatment — against <strong>beneficence and non-maleficence</strong> — my duty to protect her from preventable harm — playing out under a <strong>question mark over her capacity</strong> (early vascular dementia) and a degree of <strong>coercion from her daughter acting as donee</strong>. The crux is therefore to establish her decision-making capacity, because that single question decides whose decision this is.' },
+                { h:'Establish capacity — the crux', p:'Capacity is <strong>presumed</strong> and is <strong>decision- and time-specific</strong>; a dementia diagnosis does not remove it. I would assess whether Madam Tan can <strong>understand</strong> the relevant information, <strong>retain</strong> it, <strong>weigh</strong> it, and <strong>communicate</strong> her choice. I would first optimise the conditions — best time of day, quiet room, plain language, treating any reversible factors — and I would <strong>see her alone, without her daughter’s pressure in the room</strong>, so that whatever she expresses is genuinely her own.' },
+                { h:'Material information & informed consent', p:'For her decision to be informed I must give her what she needs to weigh: the nature of cataract surgery, its benefits (restored vision, reduced falls, better quality of life), its material risks, the <strong>alternatives</strong> — including non-surgical measures and doing nothing — and what is likely to happen if she declines. Materiality is judged from <em>her</em> perspective, including her particular concerns about an eye operation.' },
+                { h:'Explore her values & preferences', p:'Beyond the facts, I would seek to understand her preferences, values and beliefs — what matters to her about her vision, independence and risk. This serves both purposes: if she has capacity, it helps her reach an authentic decision; if she does not, it becomes the foundation of any best-interests determination.' },
+                { h:'If she has capacity', p:'If Madam Tan demonstrates capacity and still refuses, I <strong>respect her autonomy</strong>, even if I consider the decision unwise — documenting the assessment and safety-netting. I would then invite her daughter in and redirect constructively: how can we reduce her fall risk by other means, addressing <strong>extrinsic</strong> factors (home lighting, hazards, footwear, walking aids) and <strong>intrinsic</strong> ones (medication review, blood pressure, balance and gait). I would explain to Ms Lee, kindly but clearly, that a capacitous refusal <strong>cannot be overridden</strong>, and that her authority as donee <strong>does not apply while her mother retains capacity</strong>.' },
+                { h:'Verify the LPA before accepting the donee’s instruction', p:'I would not act on "I will sign for her anyway." I would verify that the LPA is <strong>valid and registered</strong> with the Office of the Public Guardian, that it covers <strong>personal welfare</strong> (not merely property and affairs), and that no restriction excludes this decision. The donee’s authority is <strong>operative only once the donor lacks capacity</strong>; even then the donee must act in Madam Tan’s <strong>best interests</strong> and cannot <strong>demand</strong> a treatment that is not indicated. A donee decides <em>for</em> the patient, not <em>over</em> her.' },
+                { h:'If she lacks capacity — best interests', p:'If the assessment shows she lacks capacity for this decision and the welfare LPA is valid, the decision is made through the <strong>best-interests framework</strong> — not on the basis of age or her diagnosis. I would weigh whether capacity might return, her <strong>past and present wishes, beliefs and values</strong>, her welfare in the round, and the <strong>least-restrictive</strong> route, consulting the donee and others close to her. I would discuss with Ms Lee whether her mother has expressed any prior wishes; if, on balance, surgery genuinely serves Madam Tan’s interests — better vision, fewer falls, improved quality of life — I would support proceeding. The guard against the daughter’s preference simply prevailing is to anchor every step in Madam Tan’s own values, and to escalate (second opinion, the OPG, or the courts) if disagreement cannot be resolved.' },
+                { h:'Managing the family & professionalism', p:'Throughout, I would manage Ms Lee with empathy — her anger comes from fear for her mother — while not being coerced into an inappropriate referral. I would acknowledge her concern, explain the principles plainly, keep the therapeutic relationship intact, and document my reasoning carefully.' },
+                { h:'Summary', p:'The decision turns on a careful, optimised capacity assessment conducted with Madam Tan alone. If she has capacity, I respect her informed refusal and work with the family to mitigate her other fall risks. If she lacks it, I make a best-interests decision with the donee acting <em>for</em> her — not in place of her values — proceeding with surgery only if it genuinely serves her vision, safety and quality of life.' }
+              ],
+              reading:[
+                { label:'Mental Capacity &amp; the LPA — in-app quick reference', ref:'mca-lpa', note:'a consolidated summary you can read inside the bank' },
+                'Mental Capacity Act (Singapore) and its Code of Practice — the functional capacity test, the powers and limits of a donee, and the best-interests checklist.',
+                'Singapore Medical Council <em>Ethical Code and Ethical Guidelines</em> (ECEG) — informed consent and the assessment of capacity.',
+                'The four principles of biomedical ethics (Beauchamp &amp; Childress): autonomy, beneficence, non-maleficence, and justice.'
+              ]
+            }
+          ]},
+          { id:'ai-in-medicine', label:'AI Use in Medicine', blurb:'Clinical decision tools, accountability, data governance, transparency with patients.', items:[] },
+          { id:'genomic-testing', label:'Genomic Testing', blurb:'Incidental findings, consent, familial implications, direct-to-consumer tests.', items:[] },
+          { id:'confidentiality', label:'Confidentiality & Disclosure', blurb:'Duty to warn, fitness to drive, mandatory reporting, third-party risk.', items:[
+            {
+              id:'adolescent-eating-disorder-confidentiality',
+              title:'A 15-year-old with an eating disorder who refuses parental involvement',
+              setting:'Polyclinic; minor, and her mother is a senior colleague',
+              stem:[
+                'You are a senior family physician at a polyclinic. Your next patient is Rachel, 15, a Secondary 3 student who booked the appointment herself and arrived alone. Her mother is your senior colleague, an orthopaedic surgeon at an affiliated tertiary hospital.',
+                'Rachel reports feeling tired and light-headed recently, especially during PE and swimming. Her periods stopped three months ago. With some hesitation, she discloses that she has been deliberately restricting her food for about six months — skipping breakfast, minimal lunch, picking at dinner — and exercising extra at night in her room.',
+                'On examination: BMI 16.8 kg/m² (down from 19 six months ago), HR 62, BP 98/62 with no postural drop, ECG normal sinus rhythm; bloods pending. She is articulate and calm, knows what she is doing is unhealthy, can describe the risks, and says she is "open to getting help" — but only if you do not tell her parents.',
+                'Her mother, she says, is "intense about appearance and grades" and has dieted restrictively for years; her father "wouldn’t understand." If you involve them now, she says she will stop coming and "figure it out myself." She also asks whether you can keep the consultation off the record, or in a separate file her mother cannot see when booking family appointments.',
+                'The next day, having seen your name on Rachel’s MC, her mother messages you on the organisation’s internal staff portal asking to be updated about what has happened to Rachel.',
+                'How would you manage this situation?'
+              ],
+              probes:[
+                { q:'Rachel is 15. How do you approach her capacity to make decisions about her care?',
+                  a:'I assess it rather than assume it. The ECEG sets <strong>no fixed legal age</strong> for medical consent below the age of majority (21): a minor with sufficient <strong>maturity and understanding</strong> can consent (a mature-minor assessment), established by explaining simply, having her articulate the risks and her reasoning, and checking consistency. She presents as articulate and insightful — encouraging. The honest nuance: an <strong>eating disorder can impair judgement specifically around food, weight and treatment</strong>, so I may find her capable of shared decisions about care while being more cautious about treating her blanket refusal of <em>any</em> parental involvement as a fully autonomous choice. Capacity is decision-specific, not global.' },
+                { q:'Is the threshold for breaching her confidentiality met today? What would change that?',
+                  a:'Not today. Confidentiality is owed to a competent minor, and overriding it is justified only where there is a <strong>serious risk</strong>, the patient <strong>cannot be persuaded</strong> to disclose, and the breach is <strong>proportionate</strong>. She is currently medically stable, engaging, and asking for help, so the threshold for unilateral breach is not met. But confidentiality is not unconditional, and I would be honest about exactly what would change my position — <strong>medical deterioration, refusal to follow the agreed plan, or signs of worsening</strong>. I am not promising secrecy; I am offering a negotiated path.' },
+                { q:'The mother messages you on the internal staff portal asking to be updated. How do you respond?',
+                  a:'The duty I owe Rachel is <strong>identical whether her mother is a stranger or a senior surgeon</strong> — seniority creates no entitlement to clinical information, and an internal staff channel is not a substitute for consent. I would reply briefly, professionally and neutrally: that I cannot discuss another patient’s consultation — including a family member’s — without their consent, that I would treat any patient the same way, and that I would encourage her to speak with Rachel directly, who is welcome to come in with her. That is honest, breaches nothing, does not capitulate to the seniority dynamic, and opens the constructive door. I would <strong>document the message and my reply</strong>, and would not be drawn into a corridor chat or phone call that bypasses the same principle.' },
+                { q:'She asks you to keep the consultation off the record, or in a hidden file. What do you do?',
+                  a:'I would <strong>decline to hide or omit the record</strong> — concealing or falsifying records breaches ECEG record-keeping standards and PDPA obligations on accurate records. But I would take her concern seriously and address it practically: explain who within the polyclinic can actually see what, that a parent’s access to a 15-year-old’s records has limits, and how to keep the record appropriately <strong>private within the system</strong> rather than off it. The honest answer to a hard request, with a workable alternative.' },
+                { q:'What is your management plan today, and how do you handle parental involvement?',
+                  a:'Today: complete bloods and ECG, give hydration and basic safety advice, and have a clear conversation about why this is serious and time-sensitive. Refer to <strong>adolescent medicine / an eating-disorder service</strong> with her agreement, with <strong>close follow-up in days, not weeks</strong>. Critically, I would agree <strong>explicit triggers for involving her parents from the outset</strong>, so that if it happens she does not experience it as betrayal — framing parental involvement as <em>when and how</em>, not <em>if</em>, since recovery at 15 will realistically involve her family. The aim is for that to happen <em>with</em> her rather than <em>to</em> her.' },
+                { q:'How does the mother being a senior colleague change your approach?',
+                  a:'It should not change the standard at all — and naming that is the point. The risk in a <strong>dual relationship</strong> is precisely that we drift from the usual standard without noticing, especially on an informal internal channel with someone senior. So I hold the same confidentiality standard I would for any family member, decline informal disclosure, and if the mother pushes back or escalates I stay consistent and seek advice from my <strong>Family Physician Consultant, the clinic’s clinical lead, or my defence society</strong>. I would rather have an awkward conversation with a senior colleague than breach a 15-year-old’s confidentiality.' }
+              ],
+              model:[
+                { h:'The tension & my priorities', p:'At its core this is a conflict between <strong>Rachel’s confidentiality and autonomy</strong> — a likely-competent 15-year-old who has sought help herself — and my duty of <strong>beneficence and non-maleficence</strong> to protect her from a potentially serious, judgement-impairing eating disorder, overlaid by a <strong>professional-boundary pressure</strong> because her mother is a senior colleague seeking information. My priorities, in order, are <strong>Rachel’s safety, preserving the therapeutic relationship, and acting within the SMC framework on confidentiality and consent</strong>. One thing up front: that her mother is a senior colleague does <em>not</em> change any of these — if anything it makes it more important to apply the same standard I would to any patient, because the risk in a dual relationship is drifting from that standard without realising it.' },
+                { h:'Capacity', p:'Rachel is 15, so capacity must be <strong>actively assessed and documented, not assumed</strong>. The ECEG sets <strong>no fixed legal age</strong> for medical consent below the age of majority (21): a minor with sufficient <strong>maturity and understanding</strong> can consent (a mature-minor assessment) — established by explaining simply, having her articulate the risks and her reasoning, and checking consistency over time. She presents as articulate and insightful, which is encouraging. But an <strong>eating disorder can impair judgement specifically around food, weight and treatment</strong>, so I may find her capable of engaging in shared decisions about care while being more cautious about treating her blanket refusal of <em>any</em> parental involvement as a fully autonomous choice. Capacity is decision-specific, not global.' },
+                { h:'Confidentiality — owed, but not unconditional', p:'The duty of confidentiality applies to a competent minor (ECEG C7 and C8), and overriding it is justified only where there is a <strong>serious risk</strong>, the patient <strong>cannot be persuaded</strong> to disclose, and the breach is <strong>proportionate</strong> — with a clear safeguarding duty were I ever to suspect abuse or neglect. Today she is medically stable, engaging and help-seeking, so the threshold for unilateral breach is <strong>not met</strong>. But I would be honest that confidentiality is not unconditional and tell her exactly what would change my position — <strong>medical deterioration, refusal to follow the agreed plan, or signs of worsening</strong>. I am not promising secrecy; I am offering a negotiated path.' },
+                { h:'The management plan', p:'Today: bloods and ECG, hydration and basic safety advice, and a clear conversation about why this is serious and time-sensitive. Referral to <strong>adolescent medicine / an eating-disorder service</strong> with her agreement, and <strong>close follow-up in days, not weeks</strong>. Critically, I would agree <strong>explicit triggers for involving her parents from the outset</strong>, so that if it happens she does not experience it as betrayal — framing parental involvement as <em>when and how</em>, not <em>if</em>, since recovery at 15 will realistically involve her family. The question is whether that happens <em>with</em> her or <em>to</em> her.' },
+                { h:'The mother’s message — the central pressure point', p:'The duty I owe Rachel is <strong>exactly the same whether her mother is a stranger, a patient, or a consultant surgeon</strong>. Seniority creates no entitlement to clinical information, and the internal staff portal is not a substitute for consent — replying substantively there would also be the wrong medium and undocumented in the record. I would reply, but carefully: brief, professional and neutral — that I cannot discuss another patient’s consultation, including a family member’s, without consent; that I would treat any patient the same way; and that I would encourage her to speak with Rachel directly, who is welcome to come in with her. That is honest, breaches nothing, does not capitulate to the seniority dynamic, and opens the constructive door. I would <strong>document the message and my reply</strong>, decline any corridor or phone follow-up that bypasses the principle, and — if pushed — stay consistent and seek advice from my Family Physician Consultant, the clinical lead, or my defence society.' },
+                { h:'The records request', p:'I would <strong>decline to keep the consultation off the system</strong> — concealing or falsifying records breaches ECEG record-keeping standards and PDPA obligations on accurate records. But I would take her concern seriously and address it practically: explain who within the polyclinic can actually see what, that a parent’s access to a 15-year-old’s records has limits, and how to keep the record appropriately <strong>private within the system</strong> rather than off it. The mother’s message is itself a live illustration of why this matters to Rachel — something I might gently reflect back to her at the next visit.' },
+                { h:'Don’t carry it alone; document', p:'Given the dual-relationship layer especially, I would seek input from a senior colleague and consider an anonymised discussion with my defence society. I would <strong>document</strong> the capacity assessment, the risk assessment, the plan and its agreed triggers, and the mother’s message and my reply — the record is the backbone of a defensible response.' },
+                { h:'Summary', p:'Rachel is likely capable of engaging in shared care, but her refusal of <em>all</em> parental involvement deserves scrutiny given the nature of the illness. The threshold for unilateral breach is not met today, but the runway is short, so I would negotiate a clear plan with explicit triggers rather than promise secrecy. I would address the records request and, critically, the mother’s message each on its own terms — holding the same standard regardless of her seniority. The moment I treat a senior colleague’s request as different from any other family member’s, I have stopped being Rachel’s doctor.' }
+              ],
+              reading:[
+                'Singapore Medical Council <em>Ethical Code and Ethical Guidelines</em> (ECEG 2016) — C6.4 (consent from minors: no fixed age, the maturity-and-understanding test), C7 (medical confidentiality), and C8 (caring for minors: confidentiality, best interests, and the safeguarding duty).',
+                'The mature-minor / Gillick-competence approach to assessing an adolescent’s capacity — decision-specific, and the recognised point that an eating disorder can impair judgement around food, weight and treatment.',
+                'The criteria for overriding a minor’s confidentiality: serious risk of harm, inability to persuade the patient to disclose, and proportionality.',
+                'Singapore adolescent eating-disorder / adolescent-medicine referral pathways (e.g., KK Women’s and Children’s Hospital).',
+                'ECEG B3 record-keeping standards and the PDPA — why a consultation cannot be kept "off the record" or in a concealed file.'
+              ]
+            }
+          ]},
+          { id:'end-of-life', label:'End-of-Life & Advance Care', blurb:'Advance care planning, withdrawal of treatment, surrogate decision-making.', items:[] }
+        ]
+      },
+      {
+        id:'leadership', label:'Leadership', blurb:'Managing people, systems and change — usually with a professionalism or ethics dimension built in.',
+        children:[
+          { id:'complaint-handling', label:'Complaint Handling', blurb:'Open disclosure, systems vs individual, service recovery, learning from error.', items:[
+            {
+              id:'sample-complaint-wait',
+              title:'Written complaint after a delayed cancer diagnosis',
+              sample:true, setting:'You are the clinic lead',
+              stem:[
+                'As clinic lead you receive a written complaint from a patient whose colorectal cancer was diagnosed after three visits over four months for "haemorrhoids". The patient alleges negligence and wants someone held accountable.',
+                'How would you handle this complaint?'
+              ],
+              probes:[
+                { q:'What are your immediate priorities on receiving the complaint?',
+                  a:'Acknowledge promptly and empathically; ensure the patient is currently receiving appropriate care; separate <strong>service recovery</strong> from <strong>investigation</strong>. Adopt an open, non-defensive stance (open disclosure / duty of candour).' },
+                { q:'How would you investigate without prematurely blaming the doctor involved?',
+                  a:'Use a <strong>systems lens</strong> first: review the records, timeline and red-flag pathways; ask whether safety-netting and referral criteria were followed. Distinguish a system failure (e.g. no clear 2-week pathway) from individual error, while supporting the clinician involved.' },
+                { q:'How do you turn this into organisational learning?',
+                  a:'Feed findings into an M&M / QI review; consider a significant-event analysis; implement and audit a change (e.g. explicit red-flag referral protocol). Close the loop with the patient. This demonstrates the leadership competency of learning from error.' }
+              ],
+              model:[
+                { h:'Immediate priorities', p:'My first responsibilities are to the patient and to a fair process. I would ensure the patient is now receiving appropriate oncological care, acknowledge the complaint promptly and empathically, and consciously <strong>separate service recovery from investigation</strong> — the patient deserves compassion now, regardless of what the investigation later concludes.' },
+                { h:'Open and non-defensive stance', p:'I would adopt <strong>open disclosure / duty of candour</strong>: meet the patient, listen, express genuine regret that their experience fell short, and explain how the concern will be examined. A defensive or legalistic posture early on erodes trust and tends to escalate complaints into claims.' },
+                { h:'Systems-first investigation', p:'I would investigate through a <strong>systems lens</strong> before reaching for individual blame: reconstruct the timeline across the three visits, check whether red-flag symptoms were elicited and acted on, whether safety-netting and referral criteria existed and were followed, and whether any pathway or workload factor contributed. This distinguishes a system failure (e.g. no clear suspected-cancer pathway) from individual error — while still supporting, not abandoning, the clinician involved.' },
+                { h:'Learning and accountability', p:'Findings would feed a significant-event analysis and an M&M/QI review, with a concrete, <strong>audited change</strong> — for instance an explicit red-flag referral protocol with safety-netting documentation. Accountability and learning are not opposites: a just-culture approach holds the system and the individual to proportionate, fair standards and closes the loop with the patient.' },
+                { h:'Summary', p:'I would care for the patient, respond openly, investigate the system before the person, support the clinician, and convert the event into a durable, audited improvement — demonstrating leadership that turns a complaint into safer care.' }
+              ]
+            },
+            {
+              id:'complaint-colleague-conduct',
+              title:'Escalating complaints and a safety incident involving a senior colleague',
+              setting:'You are Dr Chen, clinical lead (~25 staff)',
+              stem:[
+                'You are Dr Chen, Clinical Lead of a busy outpatient family clinic (~25 staff). You have day-to-day authority over clinical operations and conduct, and you report to the Chief Family Physician.',
+                'Over four months, complaints about senior physician Dr James Ng (eight years at the clinic, no prior issues) have escalated. Patients call him dismissive and rude; one has refused to ever see him again. Nursing staff report he is curt, publicly overrides them, and recently raised his voice at a junior nurse, Priya, in the waiting area in front of patients. Admin staff and colleagues say he runs chronically late, delaying the whole clinic.',
+                'Yesterday, James was 40 minutes late to work without notice. A patient with worsening symptoms was kept waiting, and there is now a question about whether that delay contributed to a deterioration. An incident report has been filed, and the Chief Family Physician wants your assessment and proposed plan by end of day.',
+                'This morning Priya, the nurse who was shouted at, came to you in tears. She told you "in confidence" that James mentioned weeks ago that his wife is seriously ill; she now feels guilty for complaining and begs you not to escalate anything, because she does not want to "ruin his career or his family." She is also the staff member most directly affected by his behaviour.',
+                'A respected senior nurse says morale is collapsing and "something has to be done." Two staff loyal to James say the complaints are exaggerated and that he is being scapegoated because he takes the hardest cases. James is also the union representative for clinical staff, so any process you initiate will be scrutinised for fairness.',
+                'As clinical lead, how would you handle this matter?'
+              ],
+              probes:[
+                { q:'What is your first step, and why?',
+                  a:'Set priorities and <strong>separate the two distinct problems</strong> before acting — a potential safety incident versus a pattern of conduct. Act first on <strong>patient safety</strong>: ensure the patient kept waiting is clinically reviewed and safe, before any conversation about James. Gather facts before judging, and do not assume the lateness caused harm.' },
+                { q:'How do you weigh James’s clinical excellence against the conduct concerns?',
+                  a:'They are not traded off against each other. Eight years of strong performance earns him a fair, genuine conversation rather than an ambush — but clinical excellence does not excuse conduct that harms patients and colleagues. I can value him clinically <em>and</em> hold him accountable.' },
+                { q:'How do you raise the personal-circumstances issue without overstepping or making assumptions?',
+                  a:'I do not disclose what Priya told me. I create space for James to raise anything affecting him himself; if he chooses to share, I offer concrete support (occupational health, EAP, adjusted scheduling). I avoid presuming, or confronting him with second-hand information about his family.' },
+                { q:'What do you say to the junior nurse who was shouted at, and to the wider team?',
+                  a:'To Priya: honour her confidence, reassure her the complaints were legitimate and she did nothing wrong, make clear the decision and its weight rest with me — not her — and that she is supported, while being honest that I cannot promise "nothing will happen." To the team: acknowledge that I am aware of the concerns and addressing them properly and confidentially, that I value James clinically, and that everyone deserves a respectful environment.' },
+                { q:'Where is the line between a supportive conversation and a formal disciplinary process?',
+                  a:'A supportive conversation addresses a conduct pattern early, with listening and offers of help. It becomes a <strong>formal process</strong> when there is a potential safety harm under investigation, when concerns persist despite support, or when fairness and scrutiny (here, a union representative) demand a documented, due-process route. Any interim measures should be proportionate, not punitive.' },
+                { q:'How do you protect patient experience and staff morale while treating James fairly?',
+                  a:'Route the safety incident to an objective, independent review; address conduct through the proper channel; support affected staff; and apply due process and the same standard to James. Fairness and morale are not opposites — a visibly fair, controlled process protects both.' },
+                { q:'What would make you escalate to the Chief Family Physician or HR?',
+                  a:'The potential safety harm already warrants informing the Chief and routing the matter to formal review, and I would involve <strong>HR early</strong> given the union dimension so the process is unimpeachable. I would escalate further if interim measures are needed, if the conduct persists, or if the matter exceeds my authority or objectivity.' }
+              ],
+              model:[
+                { h:'Priorities & framing', p:'I want to be clear about my priorities before I act, because this situation pulls in several directions at once. My ordering is <strong>patient safety first, then a fair and lawful process, then care for my staff — including James</strong>. These are not in conflict if I am disciplined about separating the different issues, and that separation is the core of how I would handle this.' },
+                { h:'Separate the two problems', p:'I would separate the two distinct problems, because conflating them would be unfair and unsafe. One is a <strong>potential clinical safety incident</strong>; the other is a <strong>pattern of conduct</strong>. They need different processes, different timelines, and different standards of proof. Treating the conduct complaints as if they caused harm — before the facts are in — would be a serious error.' },
+                { h:'The safety incident — act now', p:'On the safety incident I act immediately. Today I ensure the affected patient is clinically reviewed and safe — that is non-negotiable and comes before any conversation about James. I make sure the incident report goes through the proper investigation channel, conducted objectively, not by me alone and not pre-judged. I would not yet conclude that James’s lateness caused harm; that is for the review to establish. But I would consider, with the Chief Family Physician, whether any proportionate interim measures are needed while facts are gathered — proportionate, not punitive.' },
+                { h:'Reporting to the Chief by end of day', p:'I will not have all the answers by end of day, and I would say so plainly. What I can deliver is a clear, factual summary: the safety event is under formal review and the patient is safe; there is a documented pattern of conduct concerns I am now addressing through the proper channel; and here is my proposed plan and timeline. Demonstrating control of the process matters more than producing a verdict I do not yet have the evidence for.' },
+                { h:'The conversation with James', p:'I would meet James privately and early — but I would <strong>lead with the conduct pattern, not the incident</strong>, since the incident is under independent review and I should not prejudge it. I would be direct about the specific, documented behaviours and their effect on patients and colleagues, while genuinely listening. Eight years of strong performance earns him a real conversation, not an ambush. I would create space for him to raise anything affecting him — without my disclosing what Priya told me. If he chooses to share his situation, I can offer concrete support: occupational health, EAP, adjusted scheduling. Compassion and accountability are not opposites; I can hold both.' },
+                { h:'The confidentiality bind (Priya)', p:'Priya told me about his wife in confidence, and I will honour that — I will not repeat it to James or anyone else. But I also cannot let her distress or her guilt stop me from acting on conduct that affects patients and the whole team; that is my responsibility, not hers. I would reassure her that the complaints were legitimate, that she did nothing wrong, that the decision and its weight rest with me — not her — and that she is supported. I would also be honest that I cannot promise "nothing will happen," because I do not control where a fair process leads.' },
+                { h:'The union dimension', p:'I would treat James’s union role as a reason to be <strong>more rigorous, not to hesitate</strong>. I follow due process exactly, document everything, and apply the same standard I would apply to anyone. If anything, I would involve HR early precisely so the process is unimpeachable and cannot be framed as targeting a union representative.' },
+                { h:'The divided team', p:'I will not be drawn into the "is he being scapegoated" debate publicly. I would acknowledge to staff that I am aware of the concerns and am addressing them properly and confidentially, that I value James clinically, and that everyone — patients and staff — deserves a respectful environment. Both things are true.' },
+                { h:'Immediate next steps & bottom line', p:'My immediate steps today are: ensure the patient is safe; route the incident to a proper, independent review; give the Chief Family Physician a factual update and plan; support Priya; loop in HR; and arrange a private, fair conversation with James. The outcome I am aiming for is one where patient safety is protected, the process is fair enough to withstand scrutiny, and James is held accountable and offered support — because a leader’s job here is not to pick between fairness and compassion, but to deliver both without sacrificing either.' }
+              ],
+              reading:[
+                'Singapore Medical Council <em>Ethical Code and Ethical Guidelines</em> (ECEG) — professionalism, and the duties owed when working with and managing colleagues.',
+                'The principles of a <em>just culture</em> (James Reason) — separating system failure from individual blame when a safety incident occurs.',
+                '<em>Open disclosure</em> / duty of candour following a patient-safety incident.',
+                'Principles of <em>natural justice</em> and fair process in workplace investigations — due process, documentation, and proportionate interim measures.'
+              ]
+            }
+          ]},
+          { id:'change-management', label:'Change Management & QI', blurb:'Leading service improvement, resistance to change, sustainability.', items:[] },
+          { id:'clinical-governance', label:'Clinical Governance & Data Protection', blurb:'Data-breach response, incident management, confidentiality governance, patient safety.', items:[
+            {
+              id:'data-breach-qi-laptop',
+              title:'A stolen laptop with 850 patients’ data — managing a breach',
+              setting:'You are the clinic head; QI data lost overseas',
+              stem:[
+                'A family physician at your busy family medicine clinic is leading a Quality Improvement (QI) project reviewing diabetic patients’ HbA1c monitoring and medication adherence over a 12-month period. Before travelling overseas to attend a medical conference, she exports a spreadsheet containing 850 patients’ identifiable information — full names, NRIC numbers, dates of birth, diagnoses, current medications, and latest HbA1c results — onto her personal laptop, intending to work on the analysis and presentation during her trip, as the presentation is due when she returns.',
+                'While at the conference hotel, her laptop is stolen from her room. She informs you, her clinic head.',
+                'How would you manage this situation?'
+              ],
+              probes:[
+                { q:'What are your immediate priorities in the first hours?',
+                  a:'<strong>Containment</strong>, on three fronts at once. Get a calm, factual account from the colleague — which fields, how many records, encrypted or not, any synced cloud accounts — and check she is alright; no blame in the moment. Act on the device: attempt a <strong>remote lock or wipe</strong>, disable or change synced credentials, establish the <strong>encryption status</strong>, and have her file a <strong>police report</strong> abroad and in Singapore. And activate the clinic’s <strong>data-breach response plan</strong>, notifying the Data Protection Officer and management. ECEG C7 and C7.5 frame this as my responsibility, as clinic head, to lead a secure and orderly response.' },
+                { q:'Is this a notifiable breach? To whom, and on what basis?',
+                  a:'Yes. Under the <strong>PDPA</strong> a breach is notifiable if it is likely to cause <strong>significant harm</strong> or affects <strong>≥500 individuals</strong>. With 850 patients the scale limb is met, and NRIC plus health data fall within the <strong>prescribed categories</strong> deemed to risk significant harm, so the harm limb is met too. I must notify the <strong>PDPC within 3 calendar days</strong> of assessing it as notifiable, and notify the <strong>affected patients</strong>; I would also weigh the MOH/licensing (HCSA) dimension and inform the indemnity insurer.' },
+                { q:'How does the laptop’s encryption status change your response?',
+                  a:'It is the pivot of the risk assessment. If the device was <strong>strongly encrypted</strong>, the data are far less likely to be accessible, which softens the <em>significant-harm</em> assessment and can change the individual-notification calculus (the PDPA recognises technological protection and remediation). If it was <strong>unencrypted</strong> — the realistic worst case here — the data are exposed and the full response applies. Either way, the <strong>≥500 scale threshold likely still mandates PDPC notification</strong>. Encryption changes the harm analysis, not the existence of a reportable event.' },
+                { q:'What do you tell the patients, and what specific risk must you address?',
+                  a:'Plain, honest disclosure (the duty of candour, consistent with ECEG): what happened, exactly what data of theirs was exposed, what we are doing, and what they should do. The specific risk is the <strong>NRIC</strong> — it lifts this beyond clinical confidentiality into <strong>identity-theft</strong> territory, so the advice must address that concretely (vigilance against identity misuse, relevant safeguards), not merely reassure. Notification should be timely, not delayed until the investigation is complete.' },
+                { q:'How do you treat a colleague who erred in good faith?',
+                  a:'With a <strong>just-culture</strong> approach: she made a process error in pursuit of a legitimate QI project, not a malicious act. I would support her — acknowledge the intent, run a fair and proportionate process, and offer practical and psychological support given her likely distress — while being honest that accountability and support coexist. Much of the accountability properly attaches to the <strong>system</strong> that let identifiable data leave on a personal device, not to her alone.' },
+                { q:'What is the root cause, and what would you change to prevent recurrence?',
+                  a:'The root cause is a <strong>data-minimisation failure</strong>: fully identifiable data were exportable to a personal device and taken overseas for a task that needed only de-identified data. <strong>ECEG C7.6</strong> is explicit that identifiable patient information should not be used for research or audit without consent — so the default for QI should be <strong>de-identification / pseudonymisation</strong>. Fixes follow: restrict exports to institutional encrypted devices, mandatory encryption, access and data-loss-prevention controls, a secure-remote-working policy, and training — addressing the system, in line with ECEG C7.5’s governance duty on me as clinic head.' },
+                { q:'Should the QI project continue, and how?',
+                  a:'Yes — the project was legitimate and worthwhile; it was the data handling that failed. I would <strong>re-run it on a properly de-identified or coded dataset</strong> under appropriate governance and approvals, which both satisfies ECEG C7.6 and removes the very risk that caused the breach. Closing the loop this way turns the incident into an improvement rather than abandoning a useful project.' }
+              ],
+              model:[
+                { h:'Framing & the two layers of duty', p:'I would first name what this is: a <strong>notifiable personal data breach</strong> involving 850 patients’ identifiable, sensitive data — NRIC numbers alongside diagnoses, medications and HbA1c — exported onto an unencrypted personal device and now lost overseas. The leadership tension is between <strong>immediate containment and my duty to patients and the institution</strong> and the <strong>fair, supportive handling of a colleague who erred in good faith</strong> — held together by transparency and accountability, not concealment. It helps to see <strong>two layers of duty</strong>. The <strong>professional layer (SMC ECEG)</strong> sets the obligation that was breached: <strong>C7</strong> requires reasonable care over the security of systems storing medical records and forbids letting confidential information be disseminated through carelessness; <strong>C7.5</strong> places a specific governance duty on me, as clinic head, to ensure the most secure storage possible and proper access protocols. The <strong>statutory layer (PDPA)</strong> sets what I must operationally <em>do</em> about the breach. Knowing which instrument governs which part keeps the response orderly.' },
+                { h:'Immediate — the first hours (contain the harm)', p:'My first priority is containment, addressing the colleague, the device and the institution in parallel. <strong>The colleague:</strong> a calm, factual account — which fields, how many records, whether the disk was encrypted or password-protected, whether any cloud accounts were synced — and a check that she is alright; no blame in the moment. <strong>The device and data:</strong> attempt a <strong>remote lock or wipe</strong> if any device-management capability exists, disable or change synced credentials, and establish the <strong>encryption status</strong>, which materially drives everything downstream; have her file a <strong>police report</strong> at the overseas location, mirrored in Singapore. <strong>The institution:</strong> activate the clinic’s <strong>data-breach response plan</strong>, notify the <strong>Data Protection Officer</strong> and management immediately, and as clinic head take ownership of coordinating the response, the timeline and the documentation.' },
+                { h:'Short-term — the first days (assess, notify, support)', p:'<strong>Assess notifiability (PDPA):</strong> a breach is notifiable if it is likely to cause <strong>significant harm</strong> or is of <strong>significant scale (≥500 individuals)</strong>. Here 850 patients clears the scale threshold, and the data fall squarely within the <strong>prescribed categories</strong> (NRIC and health information) deemed to risk significant harm — so on both limbs this is notifiable. <strong>Notify the regulators:</strong> inform the <strong>PDPC within 3 calendar days</strong> of assessing the breach as notifiable; weigh the <strong>MOH/licensing (HCSA)</strong> dimension and inform the professional-indemnity insurer. <strong>Notify the patients</strong> (duty of candour): tell them plainly what happened, what data was exposed, what we are doing and what they should do — handling the <strong>NRIC</strong> exposure specifically, since it moves this into identity-theft territory. <strong>Support the colleague:</strong> acknowledge the genuine intent, provide a fair process, and offer practical and psychological support — accountability and support are not opposites.' },
+                { h:'Longer-term — fix the system and close the loop', p:'Run a <strong>root-cause analysis</strong> in a <strong>just-culture</strong> frame: why was fully identifiable data exportable to a <em>personal</em> device at all, taken overseas, for a task that needed only de-identified data? This is where <strong>ECEG C7.6</strong> bites — identifiable patient information should not be used for research or audit without consent, pointing to <strong>de-identification / pseudonymisation</strong> as the default for QI. The fixes follow the root cause: data minimisation, restricting exports to institutional encrypted devices, mandatory encryption, access and data-loss-prevention controls, a clear secure-remote-working policy, and training. Then <strong>close the loop on the QI project itself</strong> — re-run it on a de-identified dataset under proper governance — and share the learning so the culture shifts from blame to prevention.' },
+                { h:'Bottom line', p:'Contain first, assess honestly against the PDPA, notify the PDPC and patients as the law and candour require, support the colleague through a fair process, and convert a painful breach into a durable system fix — discharging both the <strong>ECEG professional duty</strong> and the <strong>PDPA statutory duty</strong>, and protecting patients without scapegoating a well-meaning colleague.' }
+              ],
+              reading:[
+                'Singapore Medical Council <em>Ethical Code and Ethical Guidelines</em> (ECEG 2016) — C7 (medical confidentiality), C7.5 (storage of medical information, and the governance duty of those with management responsibility), and C7.6 (information used for research and education).',
+                'Personal Data Protection Act (PDPA) — the data-breach notification obligation: notifiable where significant harm is likely or ≥500 individuals are affected.',
+                'PDPC <em>Guide on Managing and Notifying Data Breaches</em> — breach assessment, containment, and the 3-calendar-day PDPC notification timeline.',
+                'PDPC advisory on the use of NRIC numbers — why NRIC exposure carries heightened identity-theft risk.',
+                'The principles of a <em>just culture</em> (James Reason) — separating individual error from system failure in incident response.'
+              ]
+            }
+          ]},
+          { id:'difficult-conversations', label:'Team Conflict & Difficult Conversations', blurb:'Conflict between staff, performance management, giving feedback.', items:[] }
+        ]
+      }
+    ]
+  }
+];
+
+/* Reference pages — long-form anchoring resources rendered in-app, linked from item reading lists via { label, ref, note } */
+const REFS = {
+  'mca-lpa': {
+    title:'Mental Capacity & the LPA — Quick Reference',
+    subtitle:'Singapore Mental Capacity Act (MCA) · revision aid',
+    body:`
+<h3>1. The five statutory principles</h3>
+<ul>
+<li><strong>Presumption of capacity</strong> — every adult (&#8805;21 years) is presumed to have capacity unless the contrary is shown; a diagnosis (dementia, schizophrenia) does not by itself equal incapacity.</li>
+<li><strong>Support to decide</strong> — a person is not treated as unable to decide until all practicable steps to help them have been tried (interpreters, visual aids, best time of day, treating reversible factors).</li>
+<li><strong>The right to make unwise decisions</strong> — a choice others consider eccentric or unwise is not, in itself, evidence of incapacity.</li>
+<li><strong>Best interests</strong> — any act or decision made for a person who lacks capacity must be in their best interests.</li>
+<li><strong>Least restrictive option</strong> — achieve the aim in the way least restrictive of the person&#8217;s rights and freedom.</li>
+</ul>
+
+<h3>2. Assessing capacity — the two-step test</h3>
+<p><strong>Capacity is decision-specific and time-specific.</strong> A patient may have capacity to choose meals yet lack capacity to consent to major surgery.</p>
+<ul>
+<li><strong>Step 1 — Clinical (diagnostic):</strong> is there an impairment of, or disturbance in, the functioning of the mind or brain? Permanent (e.g. advanced dementia) or temporary (e.g. delirium, intoxication, concussion).</li>
+<li><strong>Step 2 — Functional (CRRC):</strong> the person lacks capacity if they cannot do one or more of —
+  <ul>
+  <li><strong>C</strong>omprehend the relevant information (including the risks and benefits of refusing);</li>
+  <li><strong>R</strong>etain it long enough to make the decision;</li>
+  <li><strong>R</strong>eason / weigh it in making the decision;</li>
+  <li><strong>C</strong>ommunicate the decision by any means (speech, writing, sign, blinking, hand squeeze).</li>
+  </ul>
+</li>
+</ul>
+
+<h3>3. Proxy decision-makers (LPA &amp; Deputy)</h3>
+<p>When a patient lacks capacity, <strong>family members have no automatic legal right to decide.</strong> Check for a recognised proxy:</p>
+<ul>
+<li><strong>Lasting Power of Attorney (LPA)</strong> — made by the donor while they had capacity, appointing donee(s) for <strong>Personal Welfare</strong> (healthcare) and/or <strong>Property &amp; Affairs</strong>. Confirm you are speaking to the <em>Personal Welfare</em> donee. Registered with the OPG; authority is operative only once the donor lacks capacity.</li>
+<li><strong>Court-appointed Deputy</strong> — where there is no LPA, the next-of-kin applies to the Family Justice Courts to be appointed, usually supported by your medical report proving incapacity (e.g. Form 224).</li>
+<li><strong>LPA Certificate Issuer</strong> — an accredited Singapore medical practitioner may certify that the donor understands the LPA and is free from fraud or undue pressure (psychiatrists qualify automatically).</li>
+</ul>
+<p><strong>Limits of the LPA / Deputy:</strong> they are <strong>not</strong> the sole decision-maker and work with the team on best interests; they <strong>cannot refuse life-sustaining treatment</strong> needed to prevent serious deterioration [s13(8) MCA]; and they cannot override a valid, applicable Advance Medical Directive (AMD) or court order.</p>
+
+<h3>4. Best interests — deciding when capacity is lacking</h3>
+<p>Lead the process applying the best-interests principle. The focus is on <strong>the patient</strong>, not on who makes the decision. Apply:</p>
+<ol>
+<li>Undertake a comprehensive assessment of the patient&#8217;s condition.</li>
+<li>Clarify the purpose and goals of the proposed therapy.</li>
+<li>Weigh the risks and benefits of the options against that purpose.</li>
+<li>Consider the patient&#8217;s present and past wishes, preferences, beliefs and values.</li>
+<li>Seek the views of the LPA / Deputy / family / caregivers.</li>
+<li>Seek the views of other healthcare professionals involved, if needed.</li>
+</ol>
+<p><strong>Also:</strong> consider whether capacity may return (can the decision wait?), and encourage the patient&#8217;s participation as far as possible.</p>
+<p><strong>Engaging family:</strong> they have no decision-making authority unless there is a valid LPA. Consulting them is courtesy and respect; their role is to convey the patient&#8217;s wishes and values — avoid giving the impression they are being asked to decide.</p>
+
+<h3>5. Goals of care, futility &amp; uncertainty</h3>
+<ul>
+<li><strong>Goals of medical care:</strong> promote health / prevent disease; cure; relieve pain and suffering; prevent complications and death; palliative care near the end of life.</li>
+<li><strong>Medical futility:</strong> if an intervention cannot meet any goal of care, it may be futile. Treatment is justified where its benefit outweighs the burden on the patient.</li>
+<li><strong>To avoid futile treatment, weigh:</strong> the patient&#8217;s values and beliefs; benefit versus burden; the medical indications and goals of care; and the family dynamics.</li>
+<li><strong>If a treatment&#8217;s value is uncertain:</strong> a time-limited trial may be started to clarify overall benefit — with a clear explanation that it will be closely monitored and may be withdrawn if ineffective or too burdensome.</li>
+</ul>
+
+<h3>6. Clinician workflow</h3>
+<ol>
+<li><strong>Maximise capacity</strong> — optimise the environment, treat reversible causes (e.g. a UTI causing delirium), use communication aids before concluding.</li>
+<li><strong>Document the test</strong> — record both components and all four functional (CRRC) criteria explicitly.</li>
+<li><strong>Identify the decision-maker</strong> — check the OPG registry or ask the family for a registered LPA or court order.</li>
+<li><strong>Act in best interests</strong> — if no proxy exists, document the MDT consultation and how the chosen pathway fits the patient&#8217;s best interests.</li>
+</ol>`
+  }
+};
+
+/* ============================================================
+   APP  —  hash router + renderer. No need to edit below here
+   to add content; just edit DATA above.
+   ============================================================ */
+const app = document.getElementById('app');
+const search = document.getElementById('search');
+
+const ICONS = {
+  arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  chev:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>',
+  down:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 9 6 6 6-6"/></svg>',
+  ext:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M10 14 21 3M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>',
+  doc:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>',
+  key:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 8.5-8.5M16 5l3 3M18 7l2-2"/></svg>'
+};
+
+function findNode(path){ // path = ['ebm','therapy', ...]
+  let nodes = DATA, node = null;
+  for(const id of path){
+    node = (nodes||[]).find(n=>n.id===id);
+    if(!node) return null;
+    nodes = node.children || node.items;
+  }
+  return node;
+}
+function topOf(path){ return DATA.find(n=>n.id===path[0]); }
+function countItems(node){
+  if(node.items) return node.items.length;
+  if(node.children) return node.children.reduce((s,c)=>s+countItems(c),0);
+  return 0;
+}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function crumbs(path){
+  let html='<div class="crumbs"><a href="#/">Home</a>';
+  let acc=[];
+  for(const id of path){
+    acc.push(id);
+    const n=findNode(acc.slice());
+    if(!n) break;
+    html+=`<span class="sep">/</span><a href="#/${acc.join('/')}">${esc(n.label)}</a>`;
+  }
+  return html+'</div>';
+}
+
+function renderHome(){
+  let panels='';
+  for(const sec of DATA){
+    const cats = sec.children.map(c=>`<li>${esc(c.label)}</li>`).join('');
+    panels+=`
+      <button class="panel ${sec.accent}" onclick="go('#/${sec.id}')">
+        <div class="ptag">${esc(sec.sub)}</div>
+        <h2>${esc(sec.label)}</h2>
+        <div class="pdesc">${esc(sec.blurb.split('.')[0])}.</div>
+        <ul>${cats}</ul>
+        <div class="go">Enter section ${ICONS.arrow}</div>
+      </button>`;
+  }
+  app.innerHTML=`
+    <section class="hero fade-up">
+      <div class="eyebrow">Fellowship · Family Medicine · Summative Viva</div>
+      <h1>A practice bank for <em>journal critique</em> &amp; <em>PEL</em>.</h1>
+      <p>Pick a domain below. Each entry opens to the tested article or scenario, with the probes and suggested answers tucked away until you've had a go yourself — the way the real station works.</p>
+    </section>
+    <section class="panels fade-up">${panels}</section>`;
+}
+
+function renderBranch(path, node){
+  const top=topOf(path);
+  const kids=node.children||[];
+  const cards=kids.map((c,i)=>{
+    const n=countItems(c);
+    return `<button class="card accent-${top.accent}" onclick="go('#/${path.concat(c.id).join('/')}')">
+      <div class="knum">${String(i+1).padStart(2,'0')}</div>
+      <h3>${esc(c.label)}</h3>
+      <div class="cdesc">${esc(c.blurb||'')}</div>
+      <div class="count"><span class="dot ${top.accent}"></span>${n} ${n===1?'item':'items'}</div>
+    </button>`;
+  }).join('');
+  app.innerHTML=crumbs(path)+`
+    <section class="lead fade-up">
+      <h2>${esc(node.label)}</h2>
+      <div class="blurb">${esc(node.blurb||'')}</div>
+    </section>
+    <section class="grid fade-up">${cards}</section>`;
+}
+
+function renderCategory(path, node){
+  const top=topOf(path);
+  let body;
+  if(!node.items.length){
+    body=`<div class="empty fade-up">
+      <h3>No items here yet</h3>
+      <p>This category is ready and waiting. As we generate practice material together, entries will appear here.</p>
+    </div>`;
+  } else {
+    body='<div class="itemlist fade-up">'+node.items.map(it=>{
+      const meta=[it.type,it.setting].filter(Boolean).join(' · ');
+      return `<button class="irow" onclick="go('#/${path.concat(it.id).join('/')}')">
+        <div class="ico ${top.accent}">${(it.title||'?')[0]}</div>
+        <div class="imain">
+          <h4>${esc(it.title)}${it.sample?'<span class="tag sample">Sample</span>':''}</h4>
+          <div class="imeta">${esc(meta||'Open to view')}</div>
+        </div>
+        <span class="chev">${ICONS.chev}</span>
+      </button>`;
+    }).join('')+'</div>';
+  }
+  app.innerHTML=crumbs(path)+`
+    <section class="lead fade-up">
+      <h2>${esc(node.label)}</h2>
+      <div class="blurb">${esc(node.blurb||'')}</div>
+    </section>`+body;
+}
+
+function renderItem(path, it){
+  const top=topOf(path);
+  const isPel=top.id==='pel';
+  const stem=(Array.isArray(it.stem)?it.stem:[it.stem]).map(p=>`<p>${esc(p)}</p>`).join('');
+  const chips=[it.type,it.setting].filter(Boolean).map(c=>`<span class="chip ${top.accent}">${esc(c)}</span>`).join('');
+  let cite='';
+  if(it.citation) cite+=`<div class="citation">${esc(it.citation)}</div>`;
+  if(it.articleLink) cite+=`<div><a class="artlink" href="${esc(it.articleLink)}" target="_blank" rel="noopener">${ICONS.ext} Open the tested article</a></div>`;
+
+  const probes=(it.probes||[]).map((p,i)=>`
+    <div class="probe" id="probe-${i}">
+      <div class="q"><span class="qn">${i+1}</span><span>${esc(p.q)}</span></div>
+      <button class="reveal" onclick="document.getElementById('probe-${i}').classList.add('shown')">Show suggested answer</button>
+      <div class="ans">${p.a}</div>
+    </div>`).join('');
+
+  const hasProbes=(it.probes||[]).length>0;
+  const hasModel=(it.model||[]).length>0;
+  const modelSecs=(it.model||[]).map(s=>`<div class="msec"><h4>${esc(s.h)}</h4><div>${s.p}</div></div>`).join('');
+
+  const probesPanel = hasProbes ? `
+      <div class="probes-wrap ${top.accent} fade-up" id="pw">
+        <div class="probes-head" onclick="document.getElementById('pw').classList.toggle('open')">
+          <div class="ph-ico">${ICONS.key}</div>
+          <div class="ph-txt"><b>Follow-up Probes</b><small>${(it.probes||[]).length} examiner-style probe${(it.probes||[]).length===1?'':'s'} — try each before revealing</small></div>
+          <span class="ph-toggle">Reveal ${ICONS.down}</span>
+        </div>
+        <div class="probes-body">
+          <div class="bodytools">
+            <button onclick="document.querySelectorAll('#pw .probe').forEach(p=>p.classList.add('shown'))">Show all answers</button>
+          </div>
+          ${probes}
+        </div>
+      </div>` : '';
+
+  const modelPanel = hasModel ? `
+      <div class="probes-wrap ${top.accent} fade-up" id="ma">
+        <div class="probes-head" onclick="document.getElementById('ma').classList.toggle('open')">
+          <div class="ph-ico">${ICONS.doc}</div>
+          <div class="ph-txt"><b>Full Suggested Answer</b><small>${isPel?'A model spoken response':'Model answer in appraisal order: directness \u2192 internal validity \u2192 results \u2192 external validity \u2192 summary'}</small></div>
+          <span class="ph-toggle">Reveal ${ICONS.down}</span>
+        </div>
+        <div class="probes-body"><div class="model">${modelSecs}</div></div>
+      </div>` : '';
+
+  const hasReading=(it.reading||[]).length>0;
+  const readingPanel = hasReading ? `
+      <div class="block reading fade-up">
+        <div class="blabel"><span class="bar"></span>Suggested Reading &amp; Anchoring Resources</div>
+        <ul class="readlist">${(it.reading||[]).map(r=> typeof r==='string' ? `<li>${r}</li>` : `<li><a class="readlink" href="#/ref/${r.ref}">${r.label}</a>${r.note?` — ${r.note}`:''}</li>`).join('')}</ul>
+      </div>` : '';
+
+  app.innerHTML=crumbs(path)+`
+    <section class="detail">
+      <div class="dhead fade-up">
+        <h2>${esc(it.title)}${it.sample?'<span class="tag sample">Sample</span>':''}</h2>
+        <div class="dmeta">${chips}</div>
+      </div>
+
+      <div class="block source ${isPel?'pel':''} fade-up">
+        <div class="blabel"><span class="bar"></span>${isPel?'The Scenario':'The Tested Article'}</div>
+        <div class="scenario">${stem}</div>
+        ${cite}
+      </div>
+
+      ${(hasProbes||hasModel)?'<div class="attempt-note fade-up">Attempt your answer aloud first, then reveal below.</div>':''}
+      ${probesPanel}
+      ${modelPanel}
+      ${readingPanel}
+    </section>`;
+}
+
+function renderRef(id){
+  const ref=REFS[id];
+  if(!ref){ renderHome(); return; }
+  app.innerHTML=`<div class="crumbs"><a href="#/">Home</a><span class="sep">/</span><span>Reference</span></div>
+    <section class="detail">
+      <div class="dhead fade-up"><h2>${esc(ref.title)}</h2></div>
+      ${ref.subtitle?`<div class="reflead fade-up">${esc(ref.subtitle)}</div>`:''}
+      <div class="refbody fade-up">${ref.body}</div>
+      <div class="refnote fade-up">A consolidated revision aid — confirm exact statutory section numbers against the current Mental Capacity Act before quoting them.</div>
+    </section>`;
+}
+
+function renderSearch(q){
+  const term=q.toLowerCase();
+  const hits=[];
+  for(const sec of DATA){
+    (function walk(node,path){
+      if(node.items){
+        for(const it of node.items){
+          const hay=(it.title+' '+(it.type||'')+' '+(it.setting||'')+' '+(Array.isArray(it.stem)?it.stem.join(' '):it.stem||'')).toLowerCase();
+          if(hay.includes(term)) hits.push({it,path:path.concat(it.id),sec});
+        }
+      }
+      (node.children||[]).forEach(c=>walk(c,path.concat(c.id)));
+    })(sec,[sec.id]);
+  }
+  let body;
+  if(!hits.length){
+    body=`<div class="empty"><h3>No matches</h3><p>Nothing in the bank matches "${esc(q)}" yet. Try another term, or clear the search to browse.</p></div>`;
+  } else {
+    body='<div class="itemlist">'+hits.map(h=>{
+      const trail=h.path.slice(0,-1).map(id=>findNode(h.path.slice(0,h.path.indexOf(id)+1)).label).join(' › ');
+      return `<button class="irow" onclick="go('#/${h.path.join('/')}')">
+        <div class="ico ${h.sec.accent}">${(h.it.title||'?')[0]}</div>
+        <div class="imain"><h4>${esc(h.it.title)}</h4><div class="imeta">${esc(trail)}</div></div>
+        <span class="chev">${ICONS.chev}</span></button>`;
+    }).join('')+'</div>';
+  }
+  app.innerHTML=`<section class="lead" style="padding-top:24px"><h2>Search</h2><div class="sr-note">${hits.length} result${hits.length===1?'':'s'} for "${esc(q)}"</div></section>`+body;
+}
+
+function go(hash){ location.hash=hash; }
+
+function route(){
+  const q=search.value.trim();
+  if(q){ renderSearch(q); window.scrollTo(0,0); return; }
+  const raw=location.hash.replace(/^#\/?/,'');
+  const path=raw?raw.split('/').filter(Boolean):[];
+  if(!path.length){ renderHome(); window.scrollTo(0,0); return; }
+  if(path[0]==='ref'){ renderRef(path[1]); window.scrollTo(0,0); return; }
+  const node=findNode(path);
+  if(!node){ renderHome(); return; }
+  if(node.children) renderBranch(path,node);
+  else if(node.items) renderCategory(path,node);
+  else renderItem(path,node); // it's an item (has probes/stem)
+  window.scrollTo(0,0);
+}
+
+let st;
+search.addEventListener('input',()=>{ clearTimeout(st); st=setTimeout(route,160); });
+window.addEventListener('hashchange',route);
+route();
+</script>
+</body>
+</html>
