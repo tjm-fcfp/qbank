@@ -247,7 +247,7 @@ footer code{background:var(--paper);border:1px solid var(--line);padding:1px 6px
     </div>
     <div class="fcol">
       <h4>Adding material</h4>
-      <p>Every article and scenario lives in the <code>DATA</code> object near the top of this file. To add one, copy an existing item, change the fields, and save. No server or build step — open the file or host it anywhere static.</p>
+      <p>Every article and scenario lives in the <code>DATA</code> object near the top of this file. To add one, copy an existing item, change the fields, and save. Longer reference notes (the in-app pages an item can link to from its reading list) live in the separate <code>REFS</code> object just after <code>DATA</code> — add a key there and point to it with <code>{ label, ref, note }</code> in an item's <code>reading</code> list. No server or build step — open the file or host it anywhere static.</p>
     </div>
   </div>
 </footer>
@@ -582,6 +582,7 @@ const DATA = [
                 { h:'Summary', p:'Rachel is likely capable of engaging in shared care, but her refusal of <em>all</em> parental involvement deserves scrutiny given the nature of the illness. The threshold for unilateral breach is not met today, but the runway is short, so I would negotiate a clear plan with explicit triggers rather than promise secrecy. I would address the records request and, critically, the mother’s message each on its own terms — holding the same standard regardless of her seniority. The moment I treat a senior colleague’s request as different from any other family member’s, I have stopped being Rachel’s doctor.' }
               ],
               reading:[
+                { label:'Consent &amp; Confidentiality — in-app quick reference (ECEG C6–C8)', ref:'consent-confidentiality', note:'a consolidated summary you can read inside the bank' },
                 'Singapore Medical Council <em>Ethical Code and Ethical Guidelines</em> (ECEG 2016) — C6.4 (consent from minors: no fixed age, the maturity-and-understanding test), C7 (medical confidentiality), and C8 (caring for minors: confidentiality, best interests, and the safeguarding duty).',
                 'The mature-minor / Gillick-competence approach to assessing an adolescent’s capacity — decision-specific, and the recognised point that an eating disorder can impair judgement around food, weight and treatment.',
                 'The criteria for overriding a minor’s confidentiality: serious risk of harm, inability to persuade the patient to disclose, and proportionality.',
@@ -720,6 +721,74 @@ const DATA = [
 
 /* Reference pages — long-form anchoring resources rendered in-app, linked from item reading lists via { label, ref, note } */
 const REFS = {
+  'consent-confidentiality': {
+    title:'Consent & Confidentiality — Quick Reference',
+    subtitle:'SMC ECEG 2016, C6–C8 (with the minors emphasis) · revision aid',
+    body:`
+<h3>1. Valid consent — the essentials (C6)</h3>
+<p>Consent underpins patient autonomy: a <strong>voluntary</strong> decision made by a patient with <strong>capacity</strong>, after being given enough <strong>information</strong> to understand the benefits and risks. The formality is proportionate to risk — for low-risk tests or treatments, oral or implied consent (through compliance) is enough; anything <strong>complex, invasive, or with significant potential for harm</strong> needs valid, properly <strong>documented</strong> consent after a detailed discussion.</p>
+<ul>
+<li><strong>Capacity</strong> — can the patient understand, retain, weigh, and communicate the decision?</li>
+<li><strong>Information</strong> — see C6.1 below.</li>
+<li><strong>Voluntariness</strong> — free from coercion.</li>
+</ul>
+
+<h3>2. Information to disclose (C6.1)</h3>
+<ul>
+<li>The <strong>purpose</strong> of the test/treatment, its <strong>benefits</strong>, significant <strong>limitations</strong>, <strong>material and common risks</strong>, and possible complications.</li>
+<li><strong>Alternatives</strong>, including the option of <strong>no treatment</strong>, and the <strong>risks of not proceeding</strong>.</li>
+<li>Materiality is <strong>patient-specific</strong>: a risk that is minor in general may be decisive for a particular patient (the classic example — a small risk to hand function is catastrophic for a concert pianist), so disclosure must be tailored to what <em>this</em> patient would regard as significant.</li>
+<li>For invasive/high-risk procedures, <strong>who will perform them</strong>, in detail proportionate to the risk.</li>
+</ul>
+
+<h3>3. The process (C6.2–C6.3)</h3>
+<ul>
+<li>Use a <strong>language the patient understands</strong>; arrange an interpreter where there is any doubt, rather than rely on invalid consent.</li>
+<li>Ensure <strong>no coercion</strong> from relatives, employers, insurers or others; you may state your professional opinion if the patient asks for guidance.</li>
+<li>Do <strong>not</strong> limit advice to what your own practice or institution offers.</li>
+<li><strong>Document</strong> the discussion (the more complex the case, the more detail); record oral consent, ideally with a witness.</li>
+<li>Consent is <strong>dynamic</strong> — revisit it if the clinical status changes, the plan changes, new information emerges, or the patient may have changed their mind. A signed form does not replace the conversation.</li>
+</ul>
+
+<h3>4. Consent in minors (C6.4 &amp; C8.1) — the heart of it</h3>
+<p>This is the part most often got wrong. The ECEG sets <strong>no fixed legal age</strong> for medical consent below the age of majority (21). A minor who has achieved sufficient <strong>maturity and understanding</strong> can consent on their own behalf — a <strong>mature-minor</strong> (Gillick-type) test — even though common practice is still to take consent from a parent or legal guardian.</p>
+<ul>
+<li><strong>Assess and establish capacity</strong>, do not assume it: explain in simple language, use aids where helpful, have the minor say the information back and articulate their decision and reasons, and (where time allows) repeat over time to check consistency.</li>
+<li>If in doubt about maturity, seek an opinion from an appropriate colleague (e.g. a <strong>child psychiatrist, psychologist or counsellor</strong>).</li>
+<li>Give <strong>due weight to the minor’s own views</strong>, and respect their privacy and participation in decisions (C8.1).</li>
+<li>If a <strong>competent minor refuses</strong> a treatment you consider medically imperative, you may proceed <strong>with parental consent</strong> if it is feasible to do so.</li>
+<li>If <strong>no parent/guardian is available</strong> and the minor is competent, you may take the minor’s own consent.</li>
+<li>If parents object to treatment you deem necessary, you must act in the <strong>minor’s best interests, not the parents’</strong> — escalating through independent advocates (e.g. social workers) or the courts only as a <strong>last resort</strong>, after exhausting persuasion.</li>
+</ul>
+
+<h3>5. Confidentiality (C7)</h3>
+<ul>
+<li>Keep clinical information <strong>confidential</strong> unless the patient consents to disclosure or a recognised exception applies (C7.1).</li>
+<li>Store records <strong>securely</strong>, use systems responsibly, do not access records you are not involved in, and do not let information be disseminated through <strong>carelessness</strong> or social media.</li>
+<li><strong>Disclosure without consent</strong> needs sound justification (C7.2) — it is generally defensible when it is <strong>mandated by law</strong>, <strong>necessary to protect the patient or others from harm</strong>, where <strong>parental/guardian involvement benefits a minor</strong>, or where it is in the patient’s <strong>best interests</strong>.</li>
+<li>Disclose only the <strong>minimum necessary</strong>, even in court or SMC proceedings, and never to embarrass or pressure.</li>
+<li><strong>Research and education</strong> on identifiable information requires consent; otherwise anonymise (C7.6).</li>
+<li>The duty <strong>continues after death</strong>, with limited exceptions (C7.8).</li>
+</ul>
+
+<h3>6. Confidentiality &amp; safeguarding in minors (C8.4–C8.5)</h3>
+<ul>
+<li>Maintain a minor’s confidentiality <strong>except where it is in their best interests</strong> for a parent or legal guardian to be informed (C8.4).</li>
+<li><strong>Safeguarding duty:</strong> if you have reasonable grounds to believe a minor is suffering <strong>abuse or neglect</strong> — including a minor in the care of an adult patient you are treating — you must take steps to protect them, such as reporting to the relevant child-protection authorities (C8.5).</li>
+</ul>
+
+<h3>7. Putting it together — a minor confidentiality/consent dilemma</h3>
+<p>A workable order of reasoning for the viva:</p>
+<ol>
+<li><strong>Assess capacity</strong> — maturity and understanding, decision-specific; beware illness that impairs judgement specific to the decision (e.g. an eating disorder around food and weight).</li>
+<li>Ensure adequate <strong>information</strong> and <strong>voluntariness</strong>.</li>
+<li>Recognise that <strong>confidentiality is owed</strong> to a competent minor.</li>
+<li>To override it without consent, require a <strong>serious risk</strong>, an <strong>inability to persuade</strong> the patient to disclose, and <strong>proportionality</strong> (the least-restrictive step).</li>
+<li>Prefer a <strong>negotiated path</strong> — parental involvement framed as “when and how,” not “if.”</li>
+<li>Apply the <strong>safeguarding duty</strong> if abuse or neglect is suspected.</li>
+<li><strong>Document</strong> the capacity assessment, the risk assessment, the plan and its agreed triggers, and your reasoning.</li>
+</ol>`
+  },
   'mca-lpa': {
     title:'Mental Capacity & the LPA — Quick Reference',
     subtitle:'Singapore Mental Capacity Act (MCA) · revision aid',
